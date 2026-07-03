@@ -1,0 +1,129 @@
+{
+  "audit_metadata": {
+    "url": "https://example.com",
+    "timestamp": "2026-07-02T10:30:00Z",
+    "wcag_version": "2.2",
+    "spa_detected": false
+  },
+  "findings": [
+    {
+      "id": "f-001",
+      "disability_class": "visual",
+      "criterion_number": "1.1.1",
+      "criterion_level": "A",
+      "criterion_text": "All non-text content that is presented to the user has a text alternative that serves the equivalent purpose.",
+      "legal_regulations": ["ADA Title III", "EAA Article 4"],
+      "finding_description": "Hero banner image has no alt attribute",
+      "disability_impact": "Screen reader users hear only the file name or nothing at all, missing the primary visual message of the page.",
+      "element_selector": "img.hero-banner",
+      "confidence": 0.95,
+      "status": "confirmed",
+      "critique_verdict": "CONFIRMED",
+      "critique_citation": "All non-text content that is presented to the user has a text alternative that serves the equivalent purpose.",
+      "impact_score": 82,
+      "fix": {
+        "original_html": "<img src=\"hero.jpg\" class=\"hero-banner\">",
+        "patch_html": "<img src=\"hero.jpg\" class=\"hero-banner\" alt=\"Team of volunteers planting trees at sunrise\">",
+        "patch_validated": true,
+        "diff_html": null,
+        "preview_srcdoc": null,
+        "requires_human_review": true,
+        "review_reason": "Alt text is AI-generated from surrounding context. Confirm it matches the image's actual intent."
+      }
+    },
+    {
+      "id": "f-002",
+      "disability_class": "motor",
+      "criterion_number": "2.5.8",
+      "criterion_level": "AA",
+      "criterion_text": "The size of the target for pointer inputs is at least 24 by 24 CSS pixels.",
+      "legal_regulations": ["EAA Article 4"],
+      "finding_description": "Close button is 16x16px — below the minimum touch target size",
+      "disability_impact": "Users with tremor or limited fine motor control cannot reliably activate a 16px target, especially on touch devices.",
+      "element_selector": "button.modal-close",
+      "confidence": 0.88,
+      "status": "confirmed",
+      "critique_verdict": "CONFIRMED",
+      "critique_citation": "The size of the target for pointer inputs is at least 24 by 24 CSS pixels.",
+      "impact_score": 61,
+      "fix": {
+        "original_html": "<button class=\"modal-close\" style=\"width:16px;height:16px\">×</button>",
+        "patch_html": "<button class=\"modal-close\" style=\"width:32px;height:32px\" aria-label=\"Close dialog\">×</button>",
+        "patch_validated": true,
+        "diff_html": null,
+        "preview_srcdoc": null,
+        "requires_human_review": false,
+        "review_reason": null
+      }
+    },
+    {
+      "id": "f-003",
+      "disability_class": "cognitive",
+      "criterion_number": "3.3.2",
+      "criterion_level": "A",
+      "criterion_text": "Labels or instructions are provided when content requires user input.",
+      "legal_regulations": ["ADA Title III"],
+      "finding_description": "Email field relies on placeholder text as its only label",
+      "disability_impact": "Placeholder text disappears on input, so users with memory impairments lose the field's purpose mid-task.",
+      "element_selector": "input#newsletter-email",
+      "confidence": 0.74,
+      "status": "confirmed",
+      "critique_verdict": "CONFIRMED",
+      "critique_citation": "Labels or instructions are provided when content requires user input.",
+      "impact_score": 47,
+      "fix": {
+        "original_html": "<input id=\"newsletter-email\" type=\"email\" placeholder=\"Email\">",
+        "patch_html": "<label for=\"newsletter-email\">Email address</label>\n<input id=\"newsletter-email\" type=\"email\" placeholder=\"you@example.com\">",
+        "patch_validated": true,
+        "diff_html": null,
+        "preview_srcdoc": null,
+        "requires_human_review": false,
+        "review_reason": null
+      }
+    },
+    {
+      "id": "f-004",
+      "disability_class": "at_parsing",
+      "criterion_number": "1.3.1",
+      "criterion_level": "A",
+      "criterion_text": "Information, structure, and relationships conveyed through presentation can be programmatically determined or are available in text.",
+      "legal_regulations": [],
+      "finding_description": "Data table has no caption and no header cells",
+      "disability_impact": "Screen readers announce a grid of unlabeled values with no way to associate data with its meaning.",
+      "element_selector": "table.pricing",
+      "confidence": 0.65,
+      "status": "needs_context",
+      "critique_verdict": "NEEDS_CONTEXT",
+      "critique_citation": "Information, structure, and relationships conveyed through presentation can be programmatically determined or are available in text.",
+      "impact_score": 38,
+      "fix": null
+    }
+  ],
+  "benchmark": {
+    "axe_findings": 12,
+    "wave_findings": 18,
+    "our_findings": 9,
+    "unique": 3
+  },
+  "news_preview": [
+    {
+      "headline": "EU begins EAA enforcement actions against non-compliant e-commerce platforms",
+      "summary": "Enforcement of the European Accessibility Act started June 2026; first penalty notices target checkout flows failing keyboard navigation requirements.",
+      "wcag_tags": ["2.1.1", "EAA"],
+      "date": "2026-06-28"
+    },
+    {
+      "headline": "W3C publishes updated APCA guidance in WCAG 3.0 working draft",
+      "summary": "The Advanced Perceptual Contrast Algorithm draft now includes font-weight-aware thresholds, signaling the eventual replacement of the 4.5:1 ratio.",
+      "wcag_tags": ["1.4.3", "WCAG 3.0"],
+      "date": "2026-06-20"
+    },
+    {
+      "headline": "Indian government portals face RPwD Act Section 46 audit sweep",
+      "summary": "A nationwide accessibility review of government-funded websites cites missing language attributes and unlabeled forms as the most common failures.",
+      "wcag_tags": ["3.1.1", "RPwD 2016"],
+      "date": "2026-06-15"
+    }
+  ],
+  "disclaimer": "This finding indicates a potential compliance gap. This report does not constitute legal advice. Consult a qualified accessibility attorney for compliance determinations. Automated accessibility audits identify approximately 30-40% of WCAG violations. This report does not guarantee full conformance. Manual testing with AT users is required for complete coverage."
+}

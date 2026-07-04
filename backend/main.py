@@ -21,19 +21,9 @@ async def health_check():
 
 @app.post("/audit")
 async def audit(payload: DOMPayload):
-    """
-    Day 2-3: validates DOM payload, logs it, returns a stub.
-    Day 4+: wires in pipeline.run_audit(payload) for real.
-    """
     logger.info(
         f"Received audit request | url={payload.url} "
-        f"dom_size={payload.meta.dom_size_bytes} "
-        f"spa_detected={payload.meta.spa_detected}"
+        f"dom_size={payload.meta.dom_size_bytes}"
     )
-
-    # TODO Day 4: return await pipeline.run_audit(payload)
-    return {
-        "received_url": payload.url,
-        "dom_size_bytes": payload.meta.dom_size_bytes,
-        "status": "stub — full pipeline not wired yet"
-    }
+    result = await pipeline.run_audit(payload)
+    return result

@@ -2,6 +2,14 @@
 JSON Contracts - the glue between all workstreams.
 DO NOT change field names or types without team approval (Section 6.3).
 Any change here breaks 2-3 other people's work.
+
+CHANGE LOG:
+- DOMMeta: lang_attribute made Optional (some pages have no lang attr —
+  itself a WCAG 3.1.1 violation worth recording, not an error state).
+- DOMMeta: added tab_order, images, media, forms, focus_rings,
+  oversize_warning as Optional fields to match what Anirudh's
+  content_script.js actually extracts (Design §2.2.1). Approved by
+  Sreekar per Section 6.3 contract change protocol.
 """
 
 from pydantic import BaseModel
@@ -15,14 +23,20 @@ class DOMMeta(BaseModel):
     spa_detected: bool
     dom_size_bytes: int
     page_title: str
-    lang_attribute: str
+    lang_attribute: Optional[str] = None
+    tab_order: Optional[list[dict]] = None
+    images: Optional[list[dict]] = None
+    media: Optional[list[dict]] = None
+    forms: Optional[list[dict]] = None
+    focus_rings: Optional[list[dict]] = None
+    oversize_warning: Optional[bool] = None
 
 
 class DOMPayload(BaseModel):
     url: str
     timestamp: str  # ISO 8601, e.g. "2026-07-02T10:30:00Z"
     dom_html: str
-    computed_styles: dict[str, dict[str, str]]  # selector -> {css_prop: value}
+    computed_styles: dict[str, dict]  # selector -> style object (values can be str, dict, etc.)
     meta: DOMMeta
 
 

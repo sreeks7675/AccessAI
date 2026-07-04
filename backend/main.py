@@ -5,6 +5,7 @@ Owned by Mahesh — FastAPI entrypoint.
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from prometheus_fastapi_instrumentator import Instrumentator
 from backend.orchestrator.contracts import DOMPayload, ReportJSON
 from backend.orchestrator.pipeline import AuditPipeline
 
@@ -13,14 +14,15 @@ logger = logging.getLogger("wcag-audit")
 
 app = FastAPI(title="WCAG Accessibility Audit Agent")
 
-# CORS — needed because the Chrome extension calls this API from a
-# different origin. Tighten allow_origins once the extension ID is fixed.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Prometheus metrics — exposes /metrics endpoint automatically
+Instrumentator().instrument(app).expose(app)
 
 pipeline = AuditPipeline()
 

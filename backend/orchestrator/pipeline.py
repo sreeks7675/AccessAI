@@ -13,6 +13,7 @@ from backend.orchestrator.mock_agents import (
     mock_at_parsing_agent,
 )
 from backend.orchestrator.mock_critique_agent import mock_critique_agent
+from backend.orchestrator.mock_fix_engine import mock_fix_engine
 
 
 def calculate_impact_score(finding) -> int:
@@ -31,6 +32,7 @@ class AuditPipeline:
         pass
 
     async def run_audit(self, payload: DOMPayload) -> ReportJSON:
+        # Step 1: run all 5 agents in parallel
         results = await asyncio.gather(
             mock_visual_agent(payload.dom_html),
             mock_auditory_agent(payload.dom_html),
@@ -40,12 +42,21 @@ class AuditPipeline:
         )
         all_findings = [finding for agent_findings in results for finding in agent_findings]
 
+        # Step 2: critique agent verifies findings
         reviewed_findings = await mock_critique_agent(all_findings)
 
+        # Step 3: impact-weighting
         for f in reviewed_findings:
             f.impact_score = calculate_impact_score(f)
 
-        findings_with_fix = [FindingWithFix(**f.model_dump(), fix=None) for f in reviewed_findings]
+        # Step 4: fix engine generates patches for each confirmed finding, in parallel
+        confirmed = [f for f in reviewed_findings if f.status == "confirmed"]
+        fixes = await asyncio.gather(*[mock_fix_engine(f) for f in confirmed])
+
+        findings_with_fix = [
+            FindingWithFix(**f.model_dump(), fix=fix)
+            for f, fix in zip(confirmed, fixes)
+        ]
 
         return ReportJSON(
             audit_metadata=AuditMetadata(

@@ -5,7 +5,8 @@ Owned by Mahesh.
 
 import asyncio
 import logging
-from backend.orchestrator.contracts import DOMPayload, ReportJSON, AuditMetadata, Benchmark, FindingWithFix
+from bs4 import BeautifulSoup
+from backend.orchestrator.contracts import DOMPayload, ReportJSON, AuditMetadata, Benchmark, FindingWithFix, Fix
 from backend.orchestrator.mock_agents import (
     mock_visual_agent,
     mock_auditory_agent,
@@ -14,12 +15,14 @@ from backend.orchestrator.mock_agents import (
     mock_at_parsing_agent,
 )
 from backend.orchestrator.mock_critique_agent import mock_critique_agent
-from backend.orchestrator.mock_fix_engine import mock_fix_engine
+from backend.fix_engine import FixEnginePipeline, FindingObject
 
 logger = logging.getLogger("wcag-audit")
 
 AGENT_TIMEOUT_SECONDS = 15
-FIX_TIMEOUT_SECONDS = 10
+FIX_TIMEOUT_SECONDS = 15
+
+fix_engine_pipeline = FixEnginePipeline()
 
 
 def calculate_impact_score(finding) -> int:
@@ -33,11 +36,24 @@ def calculate_impact_score(finding) -> int:
     return min(100, round(score))
 
 
+def extract_element_html(dom_html: str, selector: str) -> str:
+    """
+    Pulls the actual HTML snippet for a given CSS selector out of the full
+    page DOM. Charan's fix engine needs the real element, not just the
+    selector string.
+    """
+    try:
+        soup = BeautifulSoup(dom_html, "html.parser")
+        element = soup.select_one(selector)
+        if element:
+            return str(element)
+    except Exception as e:
+        logger.warning(f"Could not extract element for selector '{selector}': {e}")
+    # Fallback: a minimal stand-in so the fix engine has *something* to work with
+    return f"<div>{selector}</div>"
+
+
 async def run_agent_safely(agent_fn, agent_name: str, dom_html: str) -> list:
-    """
-    Wraps a single agent call so one failing/timing-out agent
-    doesn't crash the whole audit. Returns [] on failure.
-    """
     try:
         return await asyncio.wait_for(agent_fn(dom_html), timeout=AGENT_TIMEOUT_SECONDS)
     except asyncio.TimeoutError:
@@ -48,13 +64,21 @@ async def run_agent_safely(agent_fn, agent_name: str, dom_html: str) -> list:
         return []
 
 
-async def run_fix_safely(finding) -> object | None:
+async def run_fix_safely(finding, dom_html: str) -> Fix | None:
     """
-    Wraps fix engine call per-finding. Returns None on failure
-    so the finding still gets returned, just without a fix.
+    Runs Charan's real (synchronous) FixEnginePipeline in a thread so it
+    doesn't block the async event loop, with a timeout + failure isolation
+    just like the agent calls.
     """
     try:
-        return await asyncio.wait_for(mock_fix_engine(finding), timeout=FIX_TIMEOUT_SECONDS)
+        finding_obj = FindingObject.from_dict(finding.model_dump())
+        element_html = extract_element_html(dom_html, finding.element_selector)
+
+        result = await asyncio.wait_for(
+            asyncio.to_thread(fix_engine_pipeline.run, finding_obj, element_html),
+            timeout=FIX_TIMEOUT_SECONDS,
+        )
+        return Fix(**result.to_dict())
     except asyncio.TimeoutError:
         logger.warning(f"Fix engine timed out for finding {finding.id}")
         return None
@@ -68,7 +92,6 @@ class AuditPipeline:
         pass
 
     async def run_audit(self, payload: DOMPayload) -> ReportJSON:
-        # Step 1: run all 5 agents in parallel, each isolated from failure
         results = await asyncio.gather(
             run_agent_safely(mock_visual_agent, "visual", payload.dom_html),
             run_agent_safely(mock_auditory_agent, "auditory", payload.dom_html),
@@ -78,7 +101,6 @@ class AuditPipeline:
         )
         all_findings = [finding for agent_findings in results for finding in agent_findings]
 
-        # Step 2: critique agent verifies findings (fails gracefully to "needs_context")
         try:
             reviewed_findings = await asyncio.wait_for(
                 mock_critique_agent(all_findings), timeout=AGENT_TIMEOUT_SECONDS
@@ -90,13 +112,11 @@ class AuditPipeline:
                 f.critique_verdict = "NEEDS_CONTEXT"
             reviewed_findings = all_findings
 
-        # Step 3: impact-weighting (pure function, safe to run without try/except)
         for f in reviewed_findings:
             f.impact_score = calculate_impact_score(f)
 
-        # Step 4: fix engine, per-finding, isolated failures
         confirmed = [f for f in reviewed_findings if f.status == "confirmed"]
-        fixes = await asyncio.gather(*[run_fix_safely(f) for f in confirmed])
+        fixes = await asyncio.gather(*[run_fix_safely(f, payload.dom_html) for f in confirmed])
 
         findings_with_fix = [
             FindingWithFix(**f.model_dump(), fix=fix)

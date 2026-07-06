@@ -1,8 +1,6 @@
 # 🚀 AccessAI
 
-An AI-powered accessibility auditing platform that analyzes web pages for **WCAG (Web Content Accessibility Guidelines)** compliance using a **multi-agent AI architecture**.
-
-AccessAI automatically detects accessibility issues, validates findings, generates accessibility fixes, creates HTML diffs and previews, and presents the final accessibility report through a Chrome Extension.
+An AI-powered accessibility auditing platform that evaluates websites for **WCAG (Web Content Accessibility Guidelines)** compliance using a **multi-agent AI architecture**. The system detects accessibility issues, validates findings, generates compliant fixes, and presents an interactive accessibility report through a Chrome Extension.
 
 ---
 
@@ -11,47 +9,71 @@ AccessAI automatically detects accessibility issues, validates findings, generat
 ```mermaid
 flowchart TD
 
-A["🌐 Chrome Extension<br/>WS-1 • Anirudh"]
+A["🌐 Chrome Extension<br/>WS-1 • Anirudh<br/>Extract DOM & Display Results"]
 
-A --> B["⚡ POST /audit API<br/>FastAPI + Orchestrator<br/>WS-2 • Mahesh"]
+A --> B["⚡ FastAPI Backend (/audit)<br/>WS-2 • Mahesh<br/>Request Orchestration"]
 
-subgraph AG["🤖 AI Accessibility Agents (Parallel Execution)"]
+B --> C
+
+subgraph C["🤖 AI Accessibility Agents (WS-3 • Sreekar)"]
 direction LR
 
 V["👁️ Visual Agent"]
 AU["🔊 Auditory Agent"]
 M["🖱️ Motor Agent"]
-C["🧠 Cognitive Agent"]
+COG["🧠 Cognitive Agent"]
 AT["⌨️ AT Parsing Agent"]
 
 end
 
-B --> V
-B --> AU
-B --> M
-B --> C
-B --> AT
+V --> D
+AU --> D
+M --> D
+COG --> D
+AT --> D
 
-V --> CR
-AU --> CR
-M --> CR
-C --> CR
-AT --> CR
+D["✅ Critique Agent<br/>Validate & Filter Findings"]
 
-CR["✅ Critique Agent<br/>Validate & Filter Findings"]
+D --> E
 
-CR --> IW["📊 Impact Weighting<br/>Severity Scoring"]
+E["📊 Impact Weighting<br/>WS-2 • Mahesh"]
 
-IW --> FE["🛠️ Fix Engine<br/>Patch • Validate • Diff • Preview<br/>WS-4 • Charan"]
+E --> F
 
-FE --> RJ["📄 Final Audit Report"]
+F["🛠️ Fix Engine<br/>WS-4 • Charan"]
 
-RJ --> UI["🖥️ Chrome Extension UI"]
+subgraph FIX["Fix Engine Components"]
+direction LR
+
+PG["Patch Generator"]
+FV["Fix Validator"]
+DE["HTML Diff Engine"]
+PB["Preview Builder"]
+
+end
+
+F --> PG
+F --> FV
+F --> DE
+F --> PB
+
+PG --> G
+FV --> G
+DE --> G
+PB --> G
+
+G["📄 Final Accessibility Report"]
+
+G --> H["📰 News & WCAG Update Monitor<br/>WS-5 • Devanshi"]
+
+H --> I["📈 Benchmark & Evaluation"]
+
+I --> J["🖥️ Chrome Extension UI"]
 ```
 
 ---
 
-# 📁 Repository Structure
+# 📂 Repository Structure
 
 ```text
 AccessAI/
@@ -104,9 +126,9 @@ AccessAI/
 │   ├── wcag_criteria.json
 │   └── regulation_mapping.csv
 │
-├── tests/
-│
 ├── docs/
+│
+├── tests/
 │
 ├── README.md
 └── .gitignore
@@ -116,38 +138,38 @@ AccessAI/
 
 # 🔄 Project Workflow
 
-### 1. Chrome Extension (WS-1)
+## 1. Chrome Extension (WS-1)
 
 **Owner:** Anirudh
 
-Responsibilities
+Responsibilities:
 
 - Capture webpage DOM
-- Send webpage information to backend
-- Display accessibility findings
+- Send webpage data to backend
+- Display accessibility report
 - Show generated accessibility fixes
 
 ---
 
-### 2. Backend Orchestrator (WS-2)
+## 2. Backend Orchestrator (WS-2)
 
 **Owner:** Mahesh
 
-Responsibilities
+Responsibilities:
 
 - FastAPI backend
 - `/audit` endpoint
-- Coordinate complete pipeline
-- Execute all modules
-- Assemble final accessibility report
+- Coordinate complete workflow
+- Manage communication between modules
+- Generate final accessibility report
 
 ---
 
-### 3. AI Accessibility Agents (WS-3)
+## 3. AI Accessibility Agents & RAG (WS-3)
 
 **Owner:** Sreekar
 
-Five specialized AI agents execute in parallel.
+Five AI agents execute in parallel.
 
 - 👁️ Visual Agent
 - 🔊 Auditory Agent
@@ -155,60 +177,49 @@ Five specialized AI agents execute in parallel.
 - 🧠 Cognitive Agent
 - ⌨️ AT Parsing Agent
 
-Each agent analyzes the webpage using WCAG standards and produces accessibility findings.
+Each agent evaluates webpages using WCAG guidelines and generates structured accessibility findings.
+
+The **Critique Agent** validates these findings before they proceed further.
 
 ---
 
-### 4. Critique Agent
-
-**Owner:** Sreekar
-
-Responsibilities
-
-- Validate findings
-- Remove duplicate issues
-- Reject false positives
-- Produce verified accessibility findings
-
----
-
-### 5. Impact Weighting (WS-2)
+## 4. Impact Weighting (WS-2)
 
 **Owner:** Mahesh
 
-Calculates issue severity based on:
+Assigns severity scores based on:
 
-- WCAG Priority
-- User Impact
-- Accessibility Risk
-- Confidence Score
+- User impact
+- WCAG priority
+- Accessibility risk
+- Confidence score
 
 ---
 
-### 6. Fix Engine (WS-4)
+## 5. Fix Engine (WS-4)
 
 **Owner:** Charan
 
-Automatically generates accessibility fixes.
+Automatically generates accessibility-compliant fixes.
 
-Components
+### Components
 
 - Patch Generator
 - Fix Validator
 - HTML Diff Engine
 - Preview Builder
 
-Outputs
+### Outputs
 
 - HTML Patch
 - Validated Fix
-- HTML Difference
+- HTML Diff
 - Preview HTML
-- Review Status
+- Structured Fix Object
 
 ---
 
-### 7. News & Evaluation (WS-5)
+## 6. News & Evaluation (WS-5)
 
 **Owner:** Devanshi
 
@@ -264,51 +275,31 @@ Responsibilities
 
 ---
 
-# 🛠️ Fix Engine (WS-4)
-
-The Fix Engine automatically repairs accessibility issues identified during auditing.
-
-### Modules
-
-- Patch Generator
-- Fix Validator
-- HTML Diff Engine
-- Preview Builder
-
-### Features
-
-- Automatic Fix Generation
-- HTML Validation
-- Token-Level HTML Diff
-- Accessibility Preview
-- Structured Fix Objects
-
----
-
 # ✨ Key Features
 
 - WCAG 2.x Accessibility Auditing
 - Multi-Agent AI Architecture
-- Automatic Accessibility Fix Generation
+- Retrieval-Augmented Generation (RAG)
+- Automated Accessibility Fix Generation
 - HTML Patch Validation
 - HTML Difference Visualization
 - Accessibility Preview Generation
-- Severity Scoring
+- Impact-Based Severity Scoring
 - Chrome Extension Integration
-- Modular Backend Design
-- Automated Testing using Pytest
+- Modular Backend Architecture
+- Automated Testing with Pytest
 
 ---
 
 # 🧪 Testing
 
-Run all tests
+Run all tests:
 
 ```bash
 pytest
 ```
 
-Run only Fix Engine tests
+Run Fix Engine tests:
 
 ```bash
 pytest backend/tests/test_fix_engine -v
@@ -336,7 +327,7 @@ Install dependencies
 pip install -r backend/requirements.txt
 ```
 
-Run the backend server
+Run the backend
 
 ```bash
 python backend/main.py
@@ -344,6 +335,6 @@ python backend/main.py
 
 ---
 
-# 📜 License
+# 📄 License
 
 This project is developed for educational and research purposes as part of the **AccessAI** accessibility auditing platform.

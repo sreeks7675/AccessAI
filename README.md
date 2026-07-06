@@ -45,61 +45,109 @@ The platform combines specialized AI agents, Retrieval-Augmented Generation (RAG
 
 ---
 
-# 🏗️ Project Architecture
+## 🏗️ System Architecture
 
-```text
-                                        🌐 Chrome Extension
-                                   (WS-1 • Anirudh)
-                    ┌─────────────────────────────────────────────┐
-                    │                                             │
-                    │  • Extract DOM                              │
-                    │  • Capture User Interaction                 │
-                    │  • Display Accessibility Report             │
-                    │  • Preview Suggested Fixes                  │
-                    └─────────────────────────────────────────────┘
-                                        │
-                                        ▼
-                          ⚡ FastAPI Backend (WS-2 • Mahesh)
-                    ┌─────────────────────────────────────────────┐
-                    │                                             │
-                    │  • /audit Endpoint                          │
-                    │  • Request Validation                       │
-                    │  • Pipeline Orchestration                   │
-                    │  • JSON Contract Handling                   │
-                    └─────────────────────────────────────────────┘
-                                        │
-        ┌───────────────────────────────┼────────────────────────────────┐
-        ▼                               ▼                                ▼
+```mermaid
+flowchart TD
 
- 🤖 AI Agents & RAG              📊 Impact Weighting          📰 News & Evaluation
- (WS-3 • Sreekar)                 (WS-2 • Mahesh)             (WS-5 • Devanshi)
+A["🌐 Chrome Extension<br/>WS-1 • Anirudh"]
 
-┌──────────────────────┐       ┌───────────────────┐      ┌──────────────────────┐
-│ 👁️ Visual Agent       │       │ Severity Scoring  │      │ News Aggregator      │
-│ 🔊 Auditory Agent     │       │ Priority Ranking  │      │ WCAG Update Monitor  │
-│ 🖱️ Motor Agent        │       │ Confidence Score  │      │ Benchmark Evaluation │
-│ 🧠 Cognitive Agent    │       └───────────────────┘      └──────────────────────┘
-│ ⌨️ AT Parsing Agent   │
-│ ✅ Critique Agent     │
-│ 📚 WCAG RAG Store     │
-└──────────────────────┘
-                │
-                ▼
-        🛠️ Fix Engine (WS-4 • Charan)
-┌──────────────────────────────────────────────────┐
-│                                                  │
-│ 🔧 Patch Generator                               │
-│ ✅ Fix Validator                                 │
-│ 📄 HTML Diff Engine                              │
-│ 👀 Preview Builder                               │
-│                                                  │
-└──────────────────────────────────────────────────┘
-                │
-                ▼
-       📄 Final Accessibility Report (JSON)
-                │
-                ▼
-          🖥️ Chrome Extension Dashboard
+B["⚡ FastAPI Backend<br/>WS-2 • Mahesh<br/>Main.py + Orchestrator"]
+
+A --> B
+
+subgraph AG["🤖 AI Accessibility Agents (WS-3 • Sreekar)"]
+
+V["👁️ Visual Agent"]
+AU["🔊 Auditory Agent"]
+M["🖱️ Motor Agent"]
+C["🧠 Cognitive Agent"]
+AT["⌨️ AT Parsing Agent"]
+
+RAG["📚 WCAG RAG Store"]
+
+CR["✅ Critique Agent"]
+
+V --> CR
+AU --> CR
+M --> CR
+C --> CR
+AT --> CR
+
+RAG --> V
+RAG --> AU
+RAG --> M
+RAG --> C
+RAG --> AT
+
+end
+
+B --> V
+B --> AU
+B --> M
+B --> C
+B --> AT
+
+CR --> IW
+
+IW["📊 Impact Weighting<br/>WS-2 • Mahesh"]
+
+IW --> FE
+
+subgraph FIX["🛠️ Fix Engine (WS-4 • Charan)"]
+
+PG["🔧 Patch Generator"]
+FV["✅ Fix Validator"]
+DE["📄 HTML Diff Engine"]
+PB["👀 Preview Builder"]
+
+PG --> FV
+FV --> DE
+DE --> PB
+
+end
+
+FE --> PG
+
+PB --> REPORT
+
+REPORT["📄 Accessibility Report (JSON)"]
+
+REPORT --> EXT
+
+EXT["🖥️ Chrome Extension Dashboard"]
+
+NEWS["📰 News Aggregator<br/>WS-5 • Devanshi"]
+WCAG["📢 WCAG Update Monitor"]
+BENCH["📈 Benchmark Evaluation"]
+
+NEWS --> WCAG
+WCAG --> BENCH
+
+style A fill:#4F46E5,color:#fff
+style B fill:#2563EB,color:#fff
+
+style V fill:#16A34A,color:#fff
+style AU fill:#16A34A,color:#fff
+style M fill:#16A34A,color:#fff
+style C fill:#16A34A,color:#fff
+style AT fill:#16A34A,color:#fff
+style RAG fill:#15803D,color:#fff
+style CR fill:#7C3AED,color:#fff
+
+style IW fill:#F59E0B,color:#fff
+
+style PG fill:#DC2626,color:#fff
+style FV fill:#DC2626,color:#fff
+style DE fill:#DC2626,color:#fff
+style PB fill:#DC2626,color:#fff
+
+style REPORT fill:#0891B2,color:#fff
+style EXT fill:#1D4ED8,color:#fff
+
+style NEWS fill:#9333EA,color:#fff
+style WCAG fill:#9333EA,color:#fff
+style BENCH fill:#9333EA,color:#fff
 ```
 
 ---

@@ -45,135 +45,90 @@ The platform combines specialized AI agents, Retrieval-Augmented Generation (RAG
 
 ---
 
-# 🏗️ System Architecture
+# 🏗️ Project Architecture
 
 ```text
-                              🌐 Chrome Extension
-                         (WS-1 • Anirudh)
-           Extract DOM • Display Reports • Preview Fixes
-                                   │
-                                   ▼
-                     ⚡ FastAPI Backend (/audit)
-                  (WS-2 • Mahesh • Orchestrator)
-                                   │
-                                   ▼
-┌───────────────────────────────────────────────────────────────┐
-│             🤖 AI Accessibility Agents (WS-3)                 │
-│                                                               │
-│ 👁️ Visual Agent                                               │
-│ 🔊 Auditory Agent                                             │
-│ 🖱️ Motor Agent                                                │
-│ 🧠 Cognitive Agent                                            │
-│ ⌨️ AT Parsing Agent                                           │
-│                                                               │
-│ Shared Components                                             │
-│ • Base Agent                                                  │
-│ • Schemas                                                     │
-│ • Critique Agent                                              │
-└───────────────────────────────────────────────────────────────┘
-                                   │
-                                   ▼
-                 📊 Impact Weighting (WS-2 • Mahesh)
-                                   │
-                                   ▼
-┌───────────────────────────────────────────────────────────────┐
-│                 🛠️ Fix Engine (WS-4 • Charan)                 │
-│                                                               │
-│  • Patch Generator                                            │
-│  • Fix Validator                                              │
-│  • HTML Diff Engine                                           │
-│  • Preview Builder                                            │
-└───────────────────────────────────────────────────────────────┘
-                                   │
-                                   ▼
-                     📄 Accessibility Report JSON
-                                   │
-               ┌───────────────────┴───────────────────┐
-               ▼                                       ▼
-      📰 News Aggregator                    📈 Benchmark Evaluation
-         WCAG Updates                          Performance Reports
-          (WS-5)                                  (WS-5)
-               └───────────────────┬───────────────────┘
-                                   ▼
-                    🖥 Chrome Extension Dashboard
+                                        🌐 Chrome Extension
+                                   (WS-1 • Anirudh)
+                    ┌─────────────────────────────────────────────┐
+                    │                                             │
+                    │  • Extract DOM                              │
+                    │  • Capture User Interaction                 │
+                    │  • Display Accessibility Report             │
+                    │  • Preview Suggested Fixes                  │
+                    └─────────────────────────────────────────────┘
+                                        │
+                                        ▼
+                          ⚡ FastAPI Backend (WS-2 • Mahesh)
+                    ┌─────────────────────────────────────────────┐
+                    │                                             │
+                    │  • /audit Endpoint                          │
+                    │  • Request Validation                       │
+                    │  • Pipeline Orchestration                   │
+                    │  • JSON Contract Handling                   │
+                    └─────────────────────────────────────────────┘
+                                        │
+        ┌───────────────────────────────┼────────────────────────────────┐
+        ▼                               ▼                                ▼
+
+ 🤖 AI Agents & RAG              📊 Impact Weighting          📰 News & Evaluation
+ (WS-3 • Sreekar)                 (WS-2 • Mahesh)             (WS-5 • Devanshi)
+
+┌──────────────────────┐       ┌───────────────────┐      ┌──────────────────────┐
+│ 👁️ Visual Agent       │       │ Severity Scoring  │      │ News Aggregator      │
+│ 🔊 Auditory Agent     │       │ Priority Ranking  │      │ WCAG Update Monitor  │
+│ 🖱️ Motor Agent        │       │ Confidence Score  │      │ Benchmark Evaluation │
+│ 🧠 Cognitive Agent    │       └───────────────────┘      └──────────────────────┘
+│ ⌨️ AT Parsing Agent   │
+│ ✅ Critique Agent     │
+│ 📚 WCAG RAG Store     │
+└──────────────────────┘
+                │
+                ▼
+        🛠️ Fix Engine (WS-4 • Charan)
+┌──────────────────────────────────────────────────┐
+│                                                  │
+│ 🔧 Patch Generator                               │
+│ ✅ Fix Validator                                 │
+│ 📄 HTML Diff Engine                              │
+│ 👀 Preview Builder                               │
+│                                                  │
+└──────────────────────────────────────────────────┘
+                │
+                ▼
+       📄 Final Accessibility Report (JSON)
+                │
+                ▼
+          🖥️ Chrome Extension Dashboard
 ```
 
 ---
 
-# 📂 Repository Structure
+## 📂 Repository Structure
 
 ```text
 AccessAI/
 │
-├── extension/                          # Chrome Extension (WS-1)
-│   ├── manifest.json
-│   ├── background.js
-│   ├── content_script.js
+├── extension/                 # Chrome Extension (WS-1)
 │   ├── assets/
 │   └── side_panel/
-│       ├── panel.html
-│       ├── panel.css
-│       └── panel.js
 │
 ├── backend/
 │   ├── main.py
 │   ├── requirements.txt
-│   │
-│   ├── orchestrator/
-│   │   ├── __init__.py
-│   │   ├── contracts.py
-│   │   └── pipeline.py
-│   │
-│   ├── agents/
-│   │   ├── __init__.py
-│   │   ├── base_agent.py
-│   │   ├── schemas.py
-│   │   ├── visual_agent.py
-│   │   ├── auditory_agent.py
-│   │   ├── motor_agent.py
-│   │   ├── cognitive_agent.py
-│   │   ├── at_parsing_agent.py
-│   │   └── critique_agent.py
-│   │
-│   ├── rag/
-│   │   ├── __init__.py
-│   │   ├── vector_store.py
-│   │   └── wcag_loader.py
-│   │
-│   ├── fix_engine/
-│   │   ├── __init__.py
-│   │   ├── patch_generator.py
-│   │   ├── fix_validator.py
-│   │   └── diff_engine.py
-│   │
-│   ├── news/
-│   │   ├── __init__.py
-│   │   ├── aggregator.py
-│   │   └── summariser.py
-│   │
-│   ├── evaluation/
-│   │   ├── __init__.py
-│   │   ├── benchmark.py
-│   │   └── wcag_update_monitor.py
-│   │
+│   ├── orchestrator/          # WS-2
+│   ├── agents/                # WS-3
+│   ├── rag/                   # WS-3
+│   ├── fix_engine/            # WS-4
+│   ├── news/                  # WS-5
+│   ├── evaluation/            # WS-5
 │   └── tests/
-│       ├── test_agents/
-│       ├── test_fix_engine/
-│       ├── test_news_eval/
-│       └── test_orchestrator/
 │
 ├── data/
-│   ├── wcag_criteria.json
-│   └── regulation_mapping.csv
-│
 ├── docs/
-│   └── design_document.docx
-│
 ├── .github/
-│   └── workflows/
-│
-├── .gitignore
 ├── README.md
+├── .gitignore
 └── LICENSE
 ```
 

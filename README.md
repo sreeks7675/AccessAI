@@ -1,4 +1,4 @@
-                                                              # AccessAI
+# AccessAI
 
 An AI-powered accessibility auditing platform that analyzes webpages for WCAG compliance using multiple AI agents, automatically generates accessibility fixes, validates them, and provides an interactive preview through a Chrome Extension.
 

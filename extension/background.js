@@ -12,7 +12,7 @@
 
 "use strict";
 
-const DEFAULT_BACKEND = "http://localhost:8000"; // swap to GPU cluster IP via panel Settings
+const DEFAULT_BACKEND = "http://10.107.242.199:8000/audit"; // swap to GPU cluster IP via panel Settings
 
 // Open side panel on toolbar click.
 chrome.sidePanel

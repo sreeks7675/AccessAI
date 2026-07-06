@@ -1,183 +1,312 @@
-<div align="center">
+# AccessAI
 
-# 🚀 AccessAI
-
-**AI-Powered Web Accessibility Auditing Platform**
-
-An AI system that audits websites for WCAG accessibility compliance, then generates and validates real code fixes — all delivered through a Chrome Extension.
-
-</div>
+An AI-powered accessibility auditing platform that analyzes web pages for **WCAG (Web Content Accessibility Guidelines)** compliance using a multi-agent AI architecture. The system automatically detects accessibility issues, generates compliant fixes, validates them, creates visual HTML diffs, and presents the results through a Chrome Extension.
 
 ---
 
-## Overview
-
-Most accessibility tools stop at "here's a problem." AccessAI goes further.
-
-It uses five specialist AI agents to find violations, a critique agent to verify each one against real WCAG text, and a fix engine that generates, validates, and previews an actual code patch — ready to apply.
-
----
-
-## System Architecture
+# Project Architecture
 
 ```mermaid
 flowchart TD
 
-A["🌐 Chrome Extension
-WS-1 • Anirudh"]
+A["🌐 Chrome Extension<br><small>WS-1 • Anirudh</small>"]
 
-A --> B["⚡ Backend Orchestrator
-WS-2 • Mahesh"]
+A --> B["⚡ POST /audit API<br><small>WS-2 • FastAPI + Orchestrator</small>"]
 
-B --> C["🤖 AI Agents
-WS-3 • Sreekar"]
+subgraph AGENTS["🤖 AI Accessibility Agents (Parallel Execution)"]
+C1["👁️ Visual Agent"]
+C2["🔊 Auditory Agent"]
+C3["🖱️ Motor Agent"]
+C4["🧠 Cognitive Agent"]
+C5["⌨️ AT Parsing Agent"]
+end
 
-C --> D["✅ Critique Agent
-Validates findings"]
+B --> C1
+B --> C2
+B --> C3
+B --> C4
+B --> C5
 
-D --> E["📊 Impact Weighting
-WS-2 • Mahesh"]
+C1 --> D["✅ Critique Agent"]
+C2 --> D
+C3 --> D
+C4 --> D
+C5 --> D
 
-E --> F["🛠️ Fix Engine
-WS-4 • Charan"]
+D --> E["📊 Impact Weighting"]
 
-F --> G["📄 Final Report"]
+E --> F["🛠️ Fix Engine<br/>Patch • Validate • Diff • Preview<br/><small>WS-4 • Charan</small>"]
 
-G --> H["📰 News & Evaluation
-WS-5 • Devanshi"]
+F --> G["📄 Report JSON"]
 
-H --> I["🖥️ Extension UI"]
+G --> H["🖥️ Chrome Extension UI"]
+
+style A fill:#FFF4E5,stroke:#333
+style B fill:#DDEEFF,stroke:#333
+style D fill:#EFE6FF,stroke:#333
+style E fill:#DDEEFF,stroke:#333
+style F fill:#FFE8E1,stroke:#333
+style G fill:#DDEEFF,stroke:#333
+style H fill:#FFF4E5,stroke:#333
 ```
 
 ---
 
-## Repository Structure
+# Repository Structure
 
-```text
+```
 AccessAI/
-├── extension/          Chrome Extension          (WS-1 • Anirudh)
+│
+├── extension/
+│   ├── manifest.json
+│   ├── background.js
+│   ├── content_script.js
+│   └── side_panel/
+│
 ├── backend/
-│   ├── orchestrator/   Pipeline + contracts       (WS-2 • Mahesh)
-│   ├── agents/         5 disability agents        (WS-3 • Sreekar)
-│   ├── rag/            WCAG knowledge base         (WS-3 • Sreekar)
-│   ├── fix_engine/     Patch + validate + diff     (WS-4 • Charan)
-│   ├── news/           News aggregator             (WS-5 • Devanshi)
-│   └── evaluation/     Benchmarks + updates        (WS-5 • Devanshi)
-├── data/                Shared WCAG data
-├── tests/               One folder per workstream
+│   ├── main.py
+│   ├── orchestrator/
+│   ├── agents/
+│   ├── rag/
+│   ├── fix_engine/
+│   ├── news/
+│   └── evaluation/
+│
+├── data/
+│
+├── docs/
+│
+├── tests/
+│
+├── requirements.txt
+│
 └── README.md
 ```
 
-Each workstream owns one folder. No one edits another person's folder — that's how five people avoid merge conflicts.
+---
+
+# Workflow
+
+### 1. Chrome Extension (WS-1)
+
+**Owner:** Anirudh
+
+- Extracts webpage DOM
+- Sends webpage content to backend
+- Displays accessibility report
+- Shows generated accessibility fixes
 
 ---
 
-## Team
+### 2. Backend Orchestrator (WS-2)
 
-| Workstream | Owner | Branch |
-|---|---|---|
-| Extension Frontend | Anirudh | `feature/extension-frontend` |
-| Backend Orchestrator | Mahesh | `feature/backend-orchestrator` |
-| AI Agents & RAG | Sreekar (Lead) | `feature/ai-agents-rag` |
-| Fix Engine | Charan | `feature/backend-fix_engine` |
-| News & Evaluation | Devanshi | `feature/news-evaluation` |
+**Owner:** Mahesh
 
----
+Responsibilities:
 
-## How It Works
-
-**1. Extension captures the page**
-Reads the DOM, styles, and tab order. Strips out anything sensitive before sending it anywhere.
-
-**2. Backend runs the pipeline**
-Chunks the page, runs a quick rule-based scan, then hands off to the AI agents.
-
-**3. Five agents check for violations**
-Visual, Auditory, Motor, Cognitive, and Screen Reader agents each check their own area, in parallel.
-
-**4. Critique agent verifies every finding**
-No verbatim WCAG citation, no finding. This is what keeps results trustworthy.
-
-**5. Fix Engine generates a real patch**
-Produces the fix, re-tests it with axe-core, and only returns it once it actually passes.
-
-**6. Report goes back to the extension**
-Shown as a diff, a live preview, and a plain-language explanation.
+- FastAPI server
+- `/audit` API endpoint
+- Coordinates complete audit pipeline
+- Executes all modules
+- Generates final report JSON
 
 ---
 
-## Getting Started
+### 3. AI Accessibility Agents (WS-3)
 
-```bash
-# Clone the repo
-git clone https://github.com/sreeks7675/AccessAI.git
-cd AccessAI
+**Owner:** Sreekar
 
-# Set up a virtual environment
-python -m venv venv
-source venv/bin/activate      # Windows: venv\Scripts\activate
+Five specialized agents analyze the webpage simultaneously.
 
-# Install dependencies
-pip install -r backend/requirements.txt
+- 👁️ Visual Agent
+- 🔊 Auditory Agent
+- 🖱️ Motor Agent
+- 🧠 Cognitive Agent
+- ⌨️ AT Parsing Agent
 
-# Run the backend
-python backend/main.py
-```
-
-Then load the extension: go to `chrome://extensions`, enable Developer Mode, click **Load Unpacked**, and select the `extension/` folder.
+Each agent performs WCAG-based accessibility analysis and generates findings.
 
 ---
+
+### 4. Critique Agent
+
+Reviews all findings from the accessibility agents.
+
+Responsibilities:
+
+- Validate findings
+- Remove duplicates
+- Reject incorrect issues
+- Produce final accessibility findings
+
+---
+
+### 5. Impact Weighting (WS-2)
+
+**Owner:** Mahesh
+
+Assigns severity scores based on:
+
+- WCAG priority
+- User impact
+- Accessibility risk
+- Overall confidence
+
+---
+
+### 6. Fix Engine (WS-4)
+
+**Owner:** Charan
+
+Automatically repairs detected accessibility issues.
+
+Components:
+
+- Patch Generator
+- Fix Validator
+- HTML Diff Engine
+- Preview Builder
+
+Features:
+
+- Generate HTML patches
+- Validate generated fixes
+- Produce token-level HTML diffs
+- Build accessibility preview
+- Return structured fix objects
+
+---
+
+### 7. News & Evaluation (WS-5)
+
+**Owner:** Devanshi
+
+Responsibilities:
+
+- Accessibility news aggregation
+- WCAG update monitoring
+- Benchmark evaluation
+- Performance reporting
+
+---
+
+# Technology Stack
+
+## Backend
+
+- Python
+- FastAPI
+
+## Artificial Intelligence
+
+- Large Language Models (LLMs)
+- Multi-Agent Architecture
+- Retrieval-Augmented Generation (RAG)
+
+## Frontend
+
+- Chrome Extension API
+- HTML
+- CSS
+- JavaScript
 
 ## Testing
 
+- Pytest
+
+## Version Control
+
+- Git
+- GitHub
+
+---
+
+# Team Responsibilities
+
+| Workstream | Owner | Responsibility |
+|------------|--------|----------------|
+| WS-1 | Anirudh | Chrome Extension |
+| WS-2 | Mahesh | Backend Orchestrator & Impact Weighting |
+| WS-3 | Sreekar | AI Agents, RAG & Critique Agent |
+| WS-4 | Charan | Fix Engine |
+| WS-5 | Devanshi | News & Evaluation |
+
+---
+
+# Fix Engine (WS-4)
+
+The Fix Engine receives validated accessibility findings and automatically generates standards-compliant fixes.
+
+Modules:
+
+- Patch Generator
+- Fix Validator
+- HTML Diff Engine
+- Preview Builder
+
+Outputs:
+
+- HTML Patch
+- Validated Fix
+- HTML Diff
+- Preview HTML
+- Review Status
+
+---
+
+# Features
+
+- WCAG Accessibility Auditing
+- Multi-Agent AI Architecture
+- Automated Accessibility Fix Generation
+- Patch Validation
+- HTML Token-Level Diff Generation
+- Accessibility Preview
+- Severity Scoring
+- Browser Extension Integration
+- Modular Backend Architecture
+- Automated Testing using Pytest
+
+---
+
+# Testing
+
+Run all tests:
+
 ```bash
-# Run everything
 pytest
-
-# Run just one workstream
-pytest tests/test_fix_engine -v
 ```
 
----
+Run only Fix Engine tests:
 
-## Git Workflow
-
-**Every morning:**
 ```bash
-git checkout feature/<your-branch>
-git pull origin main
+pytest backend/tests/test_fix_engine -v
 ```
 
-**Commit format:**
+---
+
+# Getting Started
+
+Clone the repository
+
 ```bash
-git commit -m "[WS-4] Add fix validation loop"
+git clone https://github.com/sreeks7675/AccessAI.git
 ```
 
-**Opening a PR:** only when a feature is complete, not on every commit. Sreekar merges; Mahesh is backup.
+Install dependencies
+
+```bash
+pip install -r backend/requirements.txt
+```
+
+Run the backend
+
+```bash
+python backend/main.py
+```
 
 ---
 
-## Changing a Shared Contract
+# License
 
-If the data shared between workstreams needs to change:
-
-1. Post in group chat: `CONTRACT CHANGE PROPOSED: <what and why>`
-2. Wait for Sreekar's approval
-3. Mahesh updates the contract and notifies everyone
-4. Everyone pulls and updates their code
-
-No silent changes — a quiet rename breaks someone else's code without warning.
-
----
-
-## Tech Stack
-
-Python · FastAPI · LLMs · RAG (ChromaDB) · axe-core · Playwright · Chrome Extension (Manifest V3) · Pytest
-
----
-
-<div align="center">
-
-Built for educational and research purposes as part of the AccessAI accessibility auditing platform.
-
-</div>
+This project is developed for educational and research purposes as part of the AccessAI accessibility auditing system.

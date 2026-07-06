@@ -116,7 +116,7 @@ I --> J["🖥️ Chrome Extension UI"]
 ```text
 AccessAI/
 │
-├── extension/                     # WS-1 • Anirudh
+├── extension/
 │   ├── manifest.json
 │   ├── background.js
 │   ├── content_script.js
@@ -127,15 +127,15 @@ AccessAI/
 │       └── panel.js
 │
 ├── backend/
-│   ├── main.py                    # WS-2 • Mahesh
-│   ├── requirements.txt           # WS-2 • Mahesh (others request additions)
+│   ├── main.py
+│   ├── requirements.txt
 │   │
-│   ├── orchestrator/               # WS-2 • Mahesh
+│   ├── orchestrator/
 │   │   ├── __init__.py
-│   │   ├── pipeline.py            # 7-step audit pipeline controller
-│   │   └── contracts.py           # single source of truth for all JSON contracts
+│   │   ├── pipeline.py
+│   │   └── contracts.py
 │   │
-│   ├── agents/                    # WS-3 • Sreekar
+│   ├── agents/
 │   │   ├── visual_agent.py
 │   │   ├── auditory_agent.py
 │   │   ├── motor_agent.py
@@ -143,37 +143,31 @@ AccessAI/
 │   │   ├── at_parsing_agent.py
 │   │   └── critique_agent.py
 │   │
-│   ├── rag/                       # WS-3 • Sreekar
+│   ├── rag/
 │   │   ├── vector_store.py
 │   │   └── wcag_loader.py
 │   │
-│   ├── fix_engine/                # WS-4 • Charan
-│   │   ├── __init__.py            # FixEnginePipeline (public entry point)
+│   ├── fix_engine/
 │   │   ├── patch_generator.py
 │   │   ├── fix_validator.py
 │   │   └── diff_engine.py
 │   │
-│   ├── news/                      # WS-5 • Devanshi
+│   ├── news/
 │   │   ├── aggregator.py
 │   │   └── summariser.py
 │   │
-│   └── evaluation/                # WS-5 • Devanshi
+│   └── evaluation/
 │       ├── benchmark.py
 │       └── wcag_update_monitor.py
 │
-├── data/                          # WS-3 • Sreekar (shared, read-only for all)
+├── data/
 │   ├── wcag_criteria.json
 │   └── regulation_mapping.csv
 │
-├── docs/                          # design docs, no conflict risk
-├── tests/                         # everyone adds tests for their own module
-│   ├── test_extension/
-│   ├── test_orchestrator/
-│   ├── test_agents/
-│   ├── test_fix_engine/
-│   └── test_news_eval/
+├── docs/
 │
-├── .github/workflows/             # CI, set up by Mahesh
+├── tests/
+│
 ├── README.md
 └── .gitignore
 ```

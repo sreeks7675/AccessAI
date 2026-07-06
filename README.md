@@ -52,7 +52,7 @@ flowchart TD
 
 A["🌐 Chrome Extension<br/>WS-1 • Anirudh"]
 
-B["⚡ FastAPI Backend<br/>WS-2 • Mahesh<br/>Main.py + Orchestrator"]
+B["⚡ FastAPI Backend<br/>WS-2 • Mahesh"]
 
 A --> B
 
@@ -90,7 +90,7 @@ B --> AT
 
 CR --> IW
 
-IW["📊 Impact Weighting<br/>WS-2 • Mahesh"]
+IW["📊 Impact Weighting<br/>Severity Scoring"]
 
 IW --> FE
 
@@ -113,41 +113,45 @@ PB --> REPORT
 
 REPORT["📄 Accessibility Report (JSON)"]
 
-REPORT --> EXT
+REPORT --> DASH
 
-EXT["🖥️ Chrome Extension Dashboard"]
+DASH["🖥️ Chrome Extension Dashboard"]
 
-NEWS["📰 News Aggregator<br/>WS-5 • Devanshi"]
+NEWS["📰 News Aggregator"]
 WCAG["📢 WCAG Update Monitor"]
 BENCH["📈 Benchmark Evaluation"]
 
 NEWS --> WCAG
 WCAG --> BENCH
 
-style A fill:#4F46E5,color:#fff
-style B fill:#2563EB,color:#fff
+%% -----------------------------
+%% Soft Professional Colors
+%% -----------------------------
 
-style V fill:#16A34A,color:#fff
-style AU fill:#16A34A,color:#fff
-style M fill:#16A34A,color:#fff
-style C fill:#16A34A,color:#fff
-style AT fill:#16A34A,color:#fff
-style RAG fill:#15803D,color:#fff
-style CR fill:#7C3AED,color:#fff
+style A fill:#FFF3E0,stroke:#F4A261,color:#222
+style B fill:#E3F2FD,stroke:#42A5F5,color:#222
 
-style IW fill:#F59E0B,color:#fff
+style V fill:#E8F5E9,stroke:#66BB6A,color:#222
+style AU fill:#E8F5E9,stroke:#66BB6A,color:#222
+style M fill:#E8F5E9,stroke:#66BB6A,color:#222
+style C fill:#E8F5E9,stroke:#66BB6A,color:#222
+style AT fill:#E8F5E9,stroke:#66BB6A,color:#222
+style RAG fill:#E8F5E9,stroke:#66BB6A,color:#222
+style CR fill:#F3E5F5,stroke:#AB47BC,color:#222
 
-style PG fill:#DC2626,color:#fff
-style FV fill:#DC2626,color:#fff
-style DE fill:#DC2626,color:#fff
-style PB fill:#DC2626,color:#fff
+style IW fill:#FFF8E1,stroke:#F9A825,color:#222
 
-style REPORT fill:#0891B2,color:#fff
-style EXT fill:#1D4ED8,color:#fff
+style PG fill:#FBE9E7,stroke:#FF7043,color:#222
+style FV fill:#FBE9E7,stroke:#FF7043,color:#222
+style DE fill:#FBE9E7,stroke:#FF7043,color:#222
+style PB fill:#FBE9E7,stroke:#FF7043,color:#222
 
-style NEWS fill:#9333EA,color:#fff
-style WCAG fill:#9333EA,color:#fff
-style BENCH fill:#9333EA,color:#fff
+style REPORT fill:#E0F7FA,stroke:#26C6DA,color:#222
+style DASH fill:#E8EAF6,stroke:#5C6BC0,color:#222
+
+style NEWS fill:#FCE4EC,stroke:#EC407A,color:#222
+style WCAG fill:#FCE4EC,stroke:#EC407A,color:#222
+style BENCH fill:#FCE4EC,stroke:#EC407A,color:#222
 ```
 
 ---

@@ -5,24 +5,39 @@ Owned by Mahesh.
 
 import asyncio
 import logging
+import uuid
 from bs4 import BeautifulSoup
-from backend.orchestrator.contracts import DOMPayload, ReportJSON, AuditMetadata, Benchmark, FindingWithFix, Fix
-from backend.orchestrator.mock_agents import (
-    mock_visual_agent,
-    mock_auditory_agent,
-    mock_motor_agent,
-    mock_cognitive_agent,
-    mock_at_parsing_agent,
+from backend.orchestrator.contracts import (
+    DOMPayload, ReportJSON, AuditMetadata, Benchmark, FindingWithFix, Fix, Finding
 )
 from backend.orchestrator.mock_critique_agent import mock_critique_agent
 from backend.fix_engine import FixEnginePipeline, FindingObject
 
+from backend.agents.visual_agent import VisualAgent
+from backend.agents.auditory_agent import AuditoryAgent
+from backend.agents.motor_agent import MotorAgent
+from backend.agents.cognitive_agent import CognitiveAgent
+from backend.agents.at_parsing_agent import ATPArsingAgent
+from backend.agents.schemas import AuditAgentInput
+from backend.rag.vector_store import WCAGVectorStore
+
 logger = logging.getLogger("wcag-audit")
 
-AGENT_TIMEOUT_SECONDS = 15
+AGENT_TIMEOUT_SECONDS = 30  # real LLM calls are slower than mocks
 FIX_TIMEOUT_SECONDS = 15
 
 fix_engine_pipeline = FixEnginePipeline()
+
+# Shared vector store instance across all 5 agents (avoid reloading embeddings 5x)
+_vector_store = WCAGVectorStore()
+
+_agents = {
+    "visual": VisualAgent(vector_store=_vector_store),
+    "auditory": AuditoryAgent(vector_store=_vector_store),
+    "motor": MotorAgent(vector_store=_vector_store),
+    "cognitive": CognitiveAgent(vector_store=_vector_store),
+    "at_parsing": ATPArsingAgent(vector_store=_vector_store),
+}
 
 
 def calculate_impact_score(finding) -> int:
@@ -37,11 +52,6 @@ def calculate_impact_score(finding) -> int:
 
 
 def extract_element_html(dom_html: str, selector: str) -> str:
-    """
-    Pulls the actual HTML snippet for a given CSS selector out of the full
-    page DOM. Charan's fix engine needs the real element, not just the
-    selector string.
-    """
     try:
         soup = BeautifulSoup(dom_html, "html.parser")
         element = soup.select_one(selector)
@@ -49,13 +59,41 @@ def extract_element_html(dom_html: str, selector: str) -> str:
             return str(element)
     except Exception as e:
         logger.warning(f"Could not extract element for selector '{selector}': {e}")
-    # Fallback: a minimal stand-in so the fix engine has *something* to work with
     return f"<div>{selector}</div>"
 
 
-async def run_agent_safely(agent_fn, agent_name: str, dom_html: str) -> list:
+def convert_agent_finding_to_contract(agent_finding) -> Finding:
+    """
+    Converts Sreekar's AgentFinding (nested criterion object, no critique/impact
+    fields yet) into our flat Finding contract. Critique verdict and impact score
+    get filled in later in the pipeline once critique runs.
+    """
+    return Finding(
+        id=agent_finding.id,
+        disability_class=agent_finding.disability_class.value if hasattr(agent_finding.disability_class, "value") else agent_finding.disability_class,
+        criterion_number=agent_finding.criterion.criterion_number,
+        criterion_level=agent_finding.criterion.criterion_level,
+        criterion_text=agent_finding.criterion.criterion_text,
+        legal_regulations=agent_finding.criterion.legal_regulations,
+        finding_description=agent_finding.finding_description,
+        disability_impact=agent_finding.disability_impact,
+        element_selector=agent_finding.element_selector,
+        confidence=agent_finding.confidence,
+        status="confirmed" if agent_finding.status == "pending" else agent_finding.status,
+        critique_verdict="CONFIRMED",  # placeholder until real critique runs
+        critique_citation=agent_finding.criterion.criterion_text,  # placeholder
+        impact_score=0,  # filled in later by calculate_impact_score
+    )
+
+
+async def run_real_agent_safely(agent_name: str, agent, input_data: AuditAgentInput) -> list:
+    """
+    Wraps a real agent's .audit() call with timeout + failure isolation.
+    Converts his AgentFinding objects into our Finding contract shape.
+    """
     try:
-        return await asyncio.wait_for(agent_fn(dom_html), timeout=AGENT_TIMEOUT_SECONDS)
+        raw_findings = await asyncio.wait_for(agent.audit(input_data), timeout=AGENT_TIMEOUT_SECONDS)
+        return [convert_agent_finding_to_contract(f) for f in raw_findings]
     except asyncio.TimeoutError:
         logger.warning(f"Agent '{agent_name}' timed out after {AGENT_TIMEOUT_SECONDS}s")
         return []
@@ -64,16 +102,10 @@ async def run_agent_safely(agent_fn, agent_name: str, dom_html: str) -> list:
         return []
 
 
-async def run_fix_safely(finding, dom_html: str) -> Fix | None:
-    """
-    Runs Charan's real (synchronous) FixEnginePipeline in a thread so it
-    doesn't block the async event loop, with a timeout + failure isolation
-    just like the agent calls.
-    """
+async def run_fix_safely(finding, dom_html: str):
     try:
         finding_obj = FindingObject.from_dict(finding.model_dump())
         element_html = extract_element_html(dom_html, finding.element_selector)
-
         result = await asyncio.wait_for(
             asyncio.to_thread(fix_engine_pipeline.run, finding_obj, element_html),
             timeout=FIX_TIMEOUT_SECONDS,
@@ -92,15 +124,31 @@ class AuditPipeline:
         pass
 
     async def run_audit(self, payload: DOMPayload) -> ReportJSON:
-        results = await asyncio.gather(
-            run_agent_safely(mock_visual_agent, "visual", payload.dom_html),
-            run_agent_safely(mock_auditory_agent, "auditory", payload.dom_html),
-            run_agent_safely(mock_motor_agent, "motor", payload.dom_html),
-            run_agent_safely(mock_cognitive_agent, "cognitive", payload.dom_html),
-            run_agent_safely(mock_at_parsing_agent, "at_parsing", payload.dom_html),
-        )
+        # Build one AuditAgentInput per agent — full DOM as a single chunk for now
+        """agent_input = AuditAgentInput(
+            disability_class="visual",  # overridden per-agent below via separate inputs
+            dom_chunk=payload.dom_html,
+            url=payload.url,
+            chunk_index=0,
+            total_chunks=1,
+        )"""
+
+        # Step 1: run all 5 REAL agents in parallel
+        tasks = []
+        for name, agent in _agents.items():
+            per_agent_input = AuditAgentInput(
+                disability_class=name,
+                dom_chunk=payload.dom_html,
+                url=payload.url,
+                chunk_index=0,
+                total_chunks=1,
+            )
+            tasks.append(run_real_agent_safely(name, agent, per_agent_input))
+
+        results = await asyncio.gather(*tasks)
         all_findings = [finding for agent_findings in results for finding in agent_findings]
 
+        # Step 2: critique agent (still mocked — Sreekar hasn't built the real one yet)
         try:
             reviewed_findings = await asyncio.wait_for(
                 mock_critique_agent(all_findings), timeout=AGENT_TIMEOUT_SECONDS
@@ -112,9 +160,11 @@ class AuditPipeline:
                 f.critique_verdict = "NEEDS_CONTEXT"
             reviewed_findings = all_findings
 
+        # Step 3: impact-weighting
         for f in reviewed_findings:
             f.impact_score = calculate_impact_score(f)
 
+        # Step 4: real fix engine (Charan's)
         confirmed = [f for f in reviewed_findings if f.status == "confirmed"]
         fixes = await asyncio.gather(*[run_fix_safely(f, payload.dom_html) for f in confirmed])
 

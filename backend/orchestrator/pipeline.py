@@ -5,12 +5,10 @@ Owned by Mahesh.
 
 import asyncio
 import logging
-import uuid
 from bs4 import BeautifulSoup
 from backend.orchestrator.contracts import (
     DOMPayload, ReportJSON, AuditMetadata, Benchmark, FindingWithFix, Fix, Finding
 )
-from backend.orchestrator.mock_critique_agent import mock_critique_agent
 from backend.fix_engine import FixEnginePipeline, FindingObject
 
 from backend.agents.visual_agent import VisualAgent
@@ -18,17 +16,18 @@ from backend.agents.auditory_agent import AuditoryAgent
 from backend.agents.motor_agent import MotorAgent
 from backend.agents.cognitive_agent import CognitiveAgent
 from backend.agents.at_parsing_agent import ATPArsingAgent
-from backend.agents.schemas import AuditAgentInput
+from backend.agents.critique_agent import CritiqueAgent
+from backend.agents.schemas import AuditAgentInput, CritiqueVerdict
 from backend.rag.vector_store import WCAGVectorStore
 
 logger = logging.getLogger("wcag-audit")
 
-AGENT_TIMEOUT_SECONDS = 30  # real LLM calls are slower than mocks
+AGENT_TIMEOUT_SECONDS = 30
+CRITIQUE_TIMEOUT_SECONDS = 30
 FIX_TIMEOUT_SECONDS = 15
 
 fix_engine_pipeline = FixEnginePipeline()
 
-# Shared vector store instance across all 5 agents (avoid reloading embeddings 5x)
 _vector_store = WCAGVectorStore()
 
 _agents = {
@@ -39,16 +38,17 @@ _agents = {
     "at_parsing": ATPArsingAgent(vector_store=_vector_store),
 }
 
+_critique_agent = CritiqueAgent(vector_store=_vector_store)
 
-def calculate_impact_score(finding) -> int:
-    level_weight = {"A": 40, "AA": 25, "AAA": 10}.get(finding.criterion_level, 15)
-    confidence_weight = finding.confidence * 30
+
+def calculate_impact_score(criterion_level: str, confidence: float, disability_class: str) -> int:
+    level_weight = {"A": 40, "AA": 25, "AAA": 10}.get(criterion_level, 15)
+    confidence_weight = confidence * 30
     prevalence_weight = {
         "visual": 20, "motor": 15, "cognitive": 15,
         "auditory": 10, "at_parsing": 20,
-    }.get(finding.disability_class, 10)
-    score = level_weight + confidence_weight + prevalence_weight
-    return min(100, round(score))
+    }.get(disability_class, 10)
+    return min(100, round(level_weight + confidence_weight + prevalence_weight))
 
 
 def extract_element_html(dom_html: str, selector: str) -> str:
@@ -62,38 +62,10 @@ def extract_element_html(dom_html: str, selector: str) -> str:
     return f"<div>{selector}</div>"
 
 
-def convert_agent_finding_to_contract(agent_finding) -> Finding:
-    """
-    Converts Sreekar's AgentFinding (nested criterion object, no critique/impact
-    fields yet) into our flat Finding contract. Critique verdict and impact score
-    get filled in later in the pipeline once critique runs.
-    """
-    return Finding(
-        id=agent_finding.id,
-        disability_class=agent_finding.disability_class.value if hasattr(agent_finding.disability_class, "value") else agent_finding.disability_class,
-        criterion_number=agent_finding.criterion.criterion_number,
-        criterion_level=agent_finding.criterion.criterion_level,
-        criterion_text=agent_finding.criterion.criterion_text,
-        legal_regulations=agent_finding.criterion.legal_regulations,
-        finding_description=agent_finding.finding_description,
-        disability_impact=agent_finding.disability_impact,
-        element_selector=agent_finding.element_selector,
-        confidence=agent_finding.confidence,
-        status="confirmed" if agent_finding.status == "pending" else agent_finding.status,
-        critique_verdict="CONFIRMED",  # placeholder until real critique runs
-        critique_citation=agent_finding.criterion.criterion_text,  # placeholder
-        impact_score=0,  # filled in later by calculate_impact_score
-    )
-
-
 async def run_real_agent_safely(agent_name: str, agent, input_data: AuditAgentInput) -> list:
-    """
-    Wraps a real agent's .audit() call with timeout + failure isolation.
-    Converts his AgentFinding objects into our Finding contract shape.
-    """
+    """Returns raw AgentFinding objects (his schema) — NOT converted yet."""
     try:
-        raw_findings = await asyncio.wait_for(agent.audit(input_data), timeout=AGENT_TIMEOUT_SECONDS)
-        return [convert_agent_finding_to_contract(f) for f in raw_findings]
+        return await asyncio.wait_for(agent.audit(input_data), timeout=AGENT_TIMEOUT_SECONDS)
     except asyncio.TimeoutError:
         logger.warning(f"Agent '{agent_name}' timed out after {AGENT_TIMEOUT_SECONDS}s")
         return []
@@ -102,7 +74,64 @@ async def run_real_agent_safely(agent_name: str, agent, input_data: AuditAgentIn
         return []
 
 
-async def run_fix_safely(finding, dom_html: str):
+async def run_critique_safely(agent_finding, dom_chunk: str):
+    """Wraps critique_agent.evaluate() with timeout + failure isolation."""
+    try:
+        return await asyncio.wait_for(
+            _critique_agent.evaluate(agent_finding, dom_chunk), timeout=CRITIQUE_TIMEOUT_SECONDS
+        )
+    except Exception as e:
+        logger.error(f"Critique agent failed for finding {agent_finding.id}: {e}")
+        return None  # treated as NEEDS_CONTEXT fallback below
+
+
+def merge_finding_and_critique(agent_finding, critique_result) -> Finding | None:
+    """
+    Combines Sreekar's raw AgentFinding + CritiqueResult into our flat Finding
+    contract. Returns None if the finding was REJECTED (dropped entirely) or
+    if critique itself failed unexpectedly.
+    """
+    if critique_result is None:
+        # Critique call failed outright — conservative fallback: needs_context
+        verdict = "NEEDS_CONTEXT"
+        citation = agent_finding.criterion.criterion_text
+        status = "needs_context"
+    else:
+        verdict = critique_result.verdict.value if hasattr(critique_result.verdict, "value") else critique_result.verdict
+        if verdict == "REJECTED":
+            return None  # drop false positives entirely
+        citation = critique_result.citation or critique_result.manual_review_instruction or agent_finding.criterion.criterion_text
+        status = "confirmed" if verdict == "CONFIRMED" else "needs_context"
+
+    disability_class = (
+        agent_finding.disability_class.value
+        if hasattr(agent_finding.disability_class, "value")
+        else agent_finding.disability_class
+    )
+
+    impact_score = calculate_impact_score(
+        agent_finding.criterion.criterion_level, agent_finding.confidence, disability_class
+    )
+
+    return Finding(
+        id=agent_finding.id,
+        disability_class=disability_class,
+        criterion_number=agent_finding.criterion.criterion_number,
+        criterion_level=agent_finding.criterion.criterion_level,
+        criterion_text=agent_finding.criterion.criterion_text,
+        legal_regulations=agent_finding.criterion.legal_regulations,
+        finding_description=agent_finding.finding_description,
+        disability_impact=agent_finding.disability_impact,
+        element_selector=agent_finding.element_selector,
+        confidence=agent_finding.confidence,
+        status=status,
+        critique_verdict=verdict,
+        critique_citation=citation,
+        impact_score=impact_score,
+    )
+
+
+async def run_fix_safely(finding: Finding, dom_html: str):
     try:
         finding_obj = FindingObject.from_dict(finding.model_dump())
         element_html = extract_element_html(dom_html, finding.element_selector)
@@ -124,47 +153,34 @@ class AuditPipeline:
         pass
 
     async def run_audit(self, payload: DOMPayload) -> ReportJSON:
-        # Build one AuditAgentInput per agent — full DOM as a single chunk for now
-        """agent_input = AuditAgentInput(
-            disability_class="visual",  # overridden per-agent below via separate inputs
-            dom_chunk=payload.dom_html,
-            url=payload.url,
-            chunk_index=0,
-            total_chunks=1,
-        )"""
-
-        # Step 1: run all 5 REAL agents in parallel
+        # Step 1: run all 5 real agents in parallel — full DOM as single chunk
         tasks = []
         for name, agent in _agents.items():
-            per_agent_input = AuditAgentInput(
+            agent_input = AuditAgentInput(
                 disability_class=name,
                 dom_chunk=payload.dom_html,
                 url=payload.url,
                 chunk_index=0,
                 total_chunks=1,
             )
-            tasks.append(run_real_agent_safely(name, agent, per_agent_input))
+            tasks.append(run_real_agent_safely(name, agent, agent_input))
 
         results = await asyncio.gather(*tasks)
-        all_findings = [finding for agent_findings in results for finding in agent_findings]
+        raw_agent_findings = [f for agent_findings in results for f in agent_findings]
 
-        # Step 2: critique agent (still mocked — Sreekar hasn't built the real one yet)
-        try:
-            reviewed_findings = await asyncio.wait_for(
-                mock_critique_agent(all_findings), timeout=AGENT_TIMEOUT_SECONDS
-            )
-        except Exception as e:
-            logger.error(f"Critique agent failed: {e}")
-            for f in all_findings:
-                f.status = "needs_context"
-                f.critique_verdict = "NEEDS_CONTEXT"
-            reviewed_findings = all_findings
+        # Step 2: critique every raw finding in parallel, using his real critique agent
+        critique_results = await asyncio.gather(
+            *[run_critique_safely(f, payload.dom_html) for f in raw_agent_findings]
+        )
 
-        # Step 3: impact-weighting
-        for f in reviewed_findings:
-            f.impact_score = calculate_impact_score(f)
+        # Step 3: merge finding + critique verdict into our contract, drop REJECTED
+        merged = [
+            merge_finding_and_critique(f, c)
+            for f, c in zip(raw_agent_findings, critique_results)
+        ]
+        reviewed_findings = [f for f in merged if f is not None]
 
-        # Step 4: real fix engine (Charan's)
+        # Step 4: real fix engine, confirmed findings only
         confirmed = [f for f in reviewed_findings if f.status == "confirmed"]
         fixes = await asyncio.gather(*[run_fix_safely(f, payload.dom_html) for f in confirmed])
 

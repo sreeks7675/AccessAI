@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "WCAG Audit Agent",
+  "version": "0.1.0",
+  "description": "AI-driven, disability-stratified WCAG accessibility audits with validated fixes. Team HIMSHIKHAR 2026.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "sidePanel",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content_script.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "side_panel": {
+    "default_path": "side_panel/panel.html"
+  },
+  "action": {
+    "default_title": "Open WCAG Audit Agent"
+  }
+}

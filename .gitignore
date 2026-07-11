@@ -213,3 +213,6 @@ tempCodeRunnerFile.py
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# WS-5: local state file for WCAG update monitor (not shared project data)
+backend/evaluation/wcag_monitor_state.json

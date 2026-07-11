@@ -878,6 +878,70 @@ def _extract_original_element_html(full_dom: str, selector: str) -> str | None:
     return str(node)
 
 
+def _build_benchmark_summary(url: str, our_findings_count: int, errors: list[str]) -> dict[str, Any]:
+    """Best-effort benchmark enrichment using backend.evaluation.benchmark."""
+    summary: dict[str, Any] = {
+        "axe_findings": None,
+        "wave_findings": None,
+        "our_findings": our_findings_count,
+        "unique_findings": None,
+        "note": "Benchmark integration unavailable",
+    }
+
+    if not url:
+        summary["note"] = "Benchmark skipped: missing URL"
+        return summary
+
+    try:
+        from ..evaluation.benchmark import count_violations, run_axe_on_url
+
+        axe_results = run_axe_on_url(url)
+        axe_breakdown = count_violations(axe_results)
+        summary["axe_findings"] = axe_breakdown
+        summary["note"] = "Axe benchmark populated from evaluation module"
+    except Exception as exc:
+        logger.warning("assemble_report: benchmark enrichment failed: %s", exc)
+        errors.append(f"Benchmark enrichment failed: {exc}")
+        summary["note"] = f"Benchmark fallback used: {exc}"
+
+    return summary
+
+
+def _build_news_preview(errors: list[str], max_items: int = 5) -> list[dict[str, Any]]:
+    """Best-effort accessibility news/legal preview using backend.news modules."""
+    try:
+        from ..news.aggregator import (
+            fetch_courtlistener_cases,
+            fetch_feed,
+            filter_relevant,
+        )
+        from ..news.summariser import summarize_article
+
+        w3c_feed = "https://www.w3.org/blog/news/feed/"
+        feed_entries = fetch_feed(w3c_feed)
+        relevant_feed_entries = filter_relevant(feed_entries)
+        legal_entries = fetch_courtlistener_cases(max_results=max_items)
+
+        combined = [*relevant_feed_entries, *legal_entries][:max_items]
+        preview: list[dict[str, Any]] = []
+
+        for item in combined:
+            try:
+                enriched = summarize_article(item)
+                preview.append(enriched)
+            except Exception as exc:
+                logger.warning("assemble_report: failed to summarize news item: %s", exc)
+                fallback = dict(item)
+                fallback["ai_summary"] = f"Summary unavailable: {exc}"
+                preview.append(fallback)
+
+        return preview
+    except Exception as exc:
+        logger.warning("assemble_report: news enrichment failed: %s", exc)
+        errors.append(f"News enrichment failed: {exc}")
+        return []
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # NODE 5 — assemble_report
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1014,6 +1078,9 @@ def assemble_report(state: GraphState) -> dict:
         "user impact, not WCAG conformance level."
     )
 
+    benchmark_summary = _build_benchmark_summary(url, len(findings_with_scores), errors)
+    news_preview = _build_news_preview(errors)
+
     # ── Assemble final IP-3 report ─────────────────────────────────────────────
     final_report: dict[str, Any] = {
         "audit_metadata":    audit_metadata,
@@ -1028,16 +1095,8 @@ def assemble_report(state: GraphState) -> dict:
                 if findings_with_scores else 0
             ),
         },
-        # Benchmark tab — populated by Devanshi's WS-5 evaluation harness
-        "benchmark": {
-            "axe_findings":   None,
-            "wave_findings":  None,
-            "our_findings":   len(findings_with_scores),
-            "unique_findings": None,
-            "note": "Benchmark comparison pending WS-5 evaluation harness",
-        },
-        # News tab — populated by Devanshi's WS-5 news aggregator
-        "news_preview": [],
+        "benchmark": benchmark_summary,
+        "news_preview": news_preview,
         "disclaimer":    disclaimer,
         "pipeline_errors": errors,
     }

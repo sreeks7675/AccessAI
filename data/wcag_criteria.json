@@ -3,23 +3,10 @@
     "criterion_number": "1.1.1",
     "criterion_title": "Success Criterion 1.1.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.1.1. See https://www.w3.org/TR/WCAG22/#111",
-    "disability_classes": [
-      "visual",
-      "auditory",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.1.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -27,22 +14,10 @@
     "criterion_number": "1.2.1",
     "criterion_title": "Success Criterion 1.2.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.2.1. See https://www.w3.org/TR/WCAG22/#121",
-    "disability_classes": [
-      "auditory",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.2.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -50,22 +25,10 @@
     "criterion_number": "1.2.2",
     "criterion_title": "Success Criterion 1.2.2",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.2.2. See https://www.w3.org/TR/WCAG22/#122",
-    "disability_classes": [
-      "auditory"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA",
-      "US CVAA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.2.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -73,22 +36,10 @@
     "criterion_number": "1.2.3",
     "criterion_title": "Success Criterion 1.2.3",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.2.3. See https://www.w3.org/TR/WCAG22/#123",
-    "disability_classes": [
-      "visual",
-      "auditory"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.2.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -96,22 +47,10 @@
     "criterion_number": "1.2.4",
     "criterion_title": "Success Criterion 1.2.4",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.2.4. See https://www.w3.org/TR/WCAG22/#124",
-    "disability_classes": [
-      "auditory"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA",
-      "US CVAA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.2.4",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -119,22 +58,10 @@
     "criterion_number": "1.2.5",
     "criterion_title": "Success Criterion 1.2.5",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.2.5. See https://www.w3.org/TR/WCAG22/#125",
-    "disability_classes": [
-      "visual",
-      "auditory"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.2.5",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -142,16 +69,10 @@
     "criterion_number": "1.2.6",
     "criterion_title": "Success Criterion 1.2.6",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.2.6. See https://www.w3.org/TR/WCAG22/#126",
-    "disability_classes": [
-      "auditory"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.2.6",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -159,17 +80,10 @@
     "criterion_number": "1.2.7",
     "criterion_title": "Success Criterion 1.2.7",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.2.7. See https://www.w3.org/TR/WCAG22/#127",
-    "disability_classes": [
-      "visual",
-      "auditory"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.2.7",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -177,17 +91,10 @@
     "criterion_number": "1.2.8",
     "criterion_title": "Success Criterion 1.2.8",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.2.8. See https://www.w3.org/TR/WCAG22/#128",
-    "disability_classes": [
-      "visual",
-      "auditory"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.2.8",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -195,16 +102,10 @@
     "criterion_number": "1.2.9",
     "criterion_title": "Success Criterion 1.2.9",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.2.9. See https://www.w3.org/TR/WCAG22/#129",
-    "disability_classes": [
-      "auditory"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.2.9",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -212,23 +113,10 @@
     "criterion_number": "1.3.1",
     "criterion_title": "Success Criterion 1.3.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.3.1. See https://www.w3.org/TR/WCAG22/#131",
-    "disability_classes": [
-      "visual",
-      "at_parsing",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.3.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -236,23 +124,10 @@
     "criterion_number": "1.3.2",
     "criterion_title": "Success Criterion 1.3.2",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.3.2. See https://www.w3.org/TR/WCAG22/#132",
-    "disability_classes": [
-      "visual",
-      "at_parsing",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.3.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -260,23 +135,10 @@
     "criterion_number": "1.3.3",
     "criterion_title": "Success Criterion 1.3.3",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.3.3. See https://www.w3.org/TR/WCAG22/#133",
-    "disability_classes": [
-      "visual",
-      "auditory",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.3.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -284,22 +146,10 @@
     "criterion_number": "1.3.4",
     "criterion_title": "Success Criterion 1.3.4",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.3.4. See https://www.w3.org/TR/WCAG22/#134",
-    "disability_classes": [
-      "motor",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.3.4",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -307,22 +157,10 @@
     "criterion_number": "1.3.5",
     "criterion_title": "Success Criterion 1.3.5",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.3.5. See https://www.w3.org/TR/WCAG22/#135",
-    "disability_classes": [
-      "cognitive",
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.3.5",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -330,17 +168,10 @@
     "criterion_number": "1.3.6",
     "criterion_title": "Success Criterion 1.3.6",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.3.6. See https://www.w3.org/TR/WCAG22/#136",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.3.6",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -348,22 +179,10 @@
     "criterion_number": "1.4.1",
     "criterion_title": "Success Criterion 1.4.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.1. See https://www.w3.org/TR/WCAG22/#141",
-    "disability_classes": [
-      "visual",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -371,22 +190,10 @@
     "criterion_number": "1.4.10",
     "criterion_title": "Success Criterion 1.4.10",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.10. See https://www.w3.org/TR/WCAG22/#1410",
-    "disability_classes": [
-      "visual",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.10",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -394,22 +201,10 @@
     "criterion_number": "1.4.11",
     "criterion_title": "Success Criterion 1.4.11",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.11. See https://www.w3.org/TR/WCAG22/#1411",
-    "disability_classes": [
-      "visual",
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.11",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -417,22 +212,10 @@
     "criterion_number": "1.4.12",
     "criterion_title": "Success Criterion 1.4.12",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.12. See https://www.w3.org/TR/WCAG22/#1412",
-    "disability_classes": [
-      "visual",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.12",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -440,23 +223,10 @@
     "criterion_number": "1.4.13",
     "criterion_title": "Success Criterion 1.4.13",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.13. See https://www.w3.org/TR/WCAG22/#1413",
-    "disability_classes": [
-      "visual",
-      "motor",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.13",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -464,22 +234,10 @@
     "criterion_number": "1.4.2",
     "criterion_title": "Success Criterion 1.4.2",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.2. See https://www.w3.org/TR/WCAG22/#142",
-    "disability_classes": [
-      "auditory",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -487,21 +245,10 @@
     "criterion_number": "1.4.3",
     "criterion_title": "Success Criterion 1.4.3",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.3. See https://www.w3.org/TR/WCAG22/#143",
-    "disability_classes": [
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -509,22 +256,10 @@
     "criterion_number": "1.4.4",
     "criterion_title": "Success Criterion 1.4.4",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.4. See https://www.w3.org/TR/WCAG22/#144",
-    "disability_classes": [
-      "visual",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.4",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -532,21 +267,10 @@
     "criterion_number": "1.4.5",
     "criterion_title": "Success Criterion 1.4.5",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.5. See https://www.w3.org/TR/WCAG22/#145",
-    "disability_classes": [
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.5",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -554,16 +278,10 @@
     "criterion_number": "1.4.6",
     "criterion_title": "Success Criterion 1.4.6",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.6. See https://www.w3.org/TR/WCAG22/#146",
-    "disability_classes": [
-      "visual"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.6",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -571,16 +289,10 @@
     "criterion_number": "1.4.7",
     "criterion_title": "Success Criterion 1.4.7",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.7. See https://www.w3.org/TR/WCAG22/#147",
-    "disability_classes": [
-      "auditory"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.7",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -588,17 +300,10 @@
     "criterion_number": "1.4.8",
     "criterion_title": "Success Criterion 1.4.8",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.8. See https://www.w3.org/TR/WCAG22/#148",
-    "disability_classes": [
-      "visual",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.8",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -606,16 +311,10 @@
     "criterion_number": "1.4.9",
     "criterion_title": "Success Criterion 1.4.9",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 1.4.9. See https://www.w3.org/TR/WCAG22/#149",
-    "disability_classes": [
-      "visual"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Perceivable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 1.4.9",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -623,22 +322,10 @@
     "criterion_number": "2.1.1",
     "criterion_title": "Success Criterion 2.1.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.1.1. See https://www.w3.org/TR/WCAG22/#211",
-    "disability_classes": [
-      "motor",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.1.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -646,22 +333,10 @@
     "criterion_number": "2.1.2",
     "criterion_title": "Success Criterion 2.1.2",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.1.2. See https://www.w3.org/TR/WCAG22/#212",
-    "disability_classes": [
-      "motor",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.1.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -669,17 +344,10 @@
     "criterion_number": "2.1.3",
     "criterion_title": "Success Criterion 2.1.3",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.1.3. See https://www.w3.org/TR/WCAG22/#213",
-    "disability_classes": [
-      "motor",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.1.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -687,22 +355,10 @@
     "criterion_number": "2.1.4",
     "criterion_title": "Success Criterion 2.1.4",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.1.4. See https://www.w3.org/TR/WCAG22/#214",
-    "disability_classes": [
-      "motor",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.1.4",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -710,22 +366,10 @@
     "criterion_number": "2.2.1",
     "criterion_title": "Success Criterion 2.2.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.2.1. See https://www.w3.org/TR/WCAG22/#221",
-    "disability_classes": [
-      "cognitive",
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.2.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -733,22 +377,10 @@
     "criterion_number": "2.2.2",
     "criterion_title": "Success Criterion 2.2.2",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.2.2. See https://www.w3.org/TR/WCAG22/#222",
-    "disability_classes": [
-      "cognitive",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.2.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -756,16 +388,10 @@
     "criterion_number": "2.2.3",
     "criterion_title": "Success Criterion 2.2.3",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.2.3. See https://www.w3.org/TR/WCAG22/#223",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.2.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -773,16 +399,10 @@
     "criterion_number": "2.2.4",
     "criterion_title": "Success Criterion 2.2.4",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.2.4. See https://www.w3.org/TR/WCAG22/#224",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.2.4",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -790,16 +410,10 @@
     "criterion_number": "2.2.5",
     "criterion_title": "Success Criterion 2.2.5",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.2.5. See https://www.w3.org/TR/WCAG22/#225",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.2.5",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -807,21 +421,10 @@
     "criterion_number": "2.2.6",
     "criterion_title": "Success Criterion 2.2.6",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.2.6. See https://www.w3.org/TR/WCAG22/#226",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.2.6",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -829,22 +432,10 @@
     "criterion_number": "2.3.1",
     "criterion_title": "Success Criterion 2.3.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.3.1. See https://www.w3.org/TR/WCAG22/#231",
-    "disability_classes": [
-      "visual",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.3.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -852,16 +443,10 @@
     "criterion_number": "2.3.2",
     "criterion_title": "Success Criterion 2.3.2",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.3.2. See https://www.w3.org/TR/WCAG22/#232",
-    "disability_classes": [
-      "visual"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.3.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -869,16 +454,10 @@
     "criterion_number": "2.3.3",
     "criterion_title": "Success Criterion 2.3.3",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.3.3. See https://www.w3.org/TR/WCAG22/#233",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.3.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -886,23 +465,10 @@
     "criterion_number": "2.4.1",
     "criterion_title": "Success Criterion 2.4.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.1. See https://www.w3.org/TR/WCAG22/#241",
-    "disability_classes": [
-      "motor",
-      "at_parsing",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -910,17 +476,10 @@
     "criterion_number": "2.4.10",
     "criterion_title": "Success Criterion 2.4.10",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.10. See https://www.w3.org/TR/WCAG22/#2410",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.10",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -928,22 +487,10 @@
     "criterion_number": "2.4.11",
     "criterion_title": "Success Criterion 2.4.11",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.11. See https://www.w3.org/TR/WCAG22/#2411",
-    "disability_classes": [
-      "motor",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.11",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -951,17 +498,10 @@
     "criterion_number": "2.4.12",
     "criterion_title": "Success Criterion 2.4.12",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.12. See https://www.w3.org/TR/WCAG22/#2412",
-    "disability_classes": [
-      "motor",
-      "visual"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.12",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -969,22 +509,10 @@
     "criterion_number": "2.4.13",
     "criterion_title": "Success Criterion 2.4.13",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.13. See https://www.w3.org/TR/WCAG22/#2413",
-    "disability_classes": [
-      "motor",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.13",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -992,22 +520,10 @@
     "criterion_number": "2.4.2",
     "criterion_title": "Success Criterion 2.4.2",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.2. See https://www.w3.org/TR/WCAG22/#242",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1015,23 +531,10 @@
     "criterion_number": "2.4.3",
     "criterion_title": "Success Criterion 2.4.3",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.3. See https://www.w3.org/TR/WCAG22/#243",
-    "disability_classes": [
-      "motor",
-      "at_parsing",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1039,23 +542,10 @@
     "criterion_number": "2.4.4",
     "criterion_title": "Success Criterion 2.4.4",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.4. See https://www.w3.org/TR/WCAG22/#244",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.4",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1063,22 +553,10 @@
     "criterion_number": "2.4.5",
     "criterion_title": "Success Criterion 2.4.5",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.5. See https://www.w3.org/TR/WCAG22/#245",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.5",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1086,23 +564,10 @@
     "criterion_number": "2.4.6",
     "criterion_title": "Success Criterion 2.4.6",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.6. See https://www.w3.org/TR/WCAG22/#246",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.6",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1110,22 +575,10 @@
     "criterion_number": "2.4.7",
     "criterion_title": "Success Criterion 2.4.7",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.7. See https://www.w3.org/TR/WCAG22/#247",
-    "disability_classes": [
-      "motor",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.7",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1133,16 +586,10 @@
     "criterion_number": "2.4.8",
     "criterion_title": "Success Criterion 2.4.8",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.8. See https://www.w3.org/TR/WCAG22/#248",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.8",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1150,17 +597,10 @@
     "criterion_number": "2.4.9",
     "criterion_title": "Success Criterion 2.4.9",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.4.9. See https://www.w3.org/TR/WCAG22/#249",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.4.9",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1168,22 +608,10 @@
     "criterion_number": "2.5.1",
     "criterion_title": "Success Criterion 2.5.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.5.1. See https://www.w3.org/TR/WCAG22/#251",
-    "disability_classes": [
-      "motor",
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.5.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1191,21 +619,10 @@
     "criterion_number": "2.5.2",
     "criterion_title": "Success Criterion 2.5.2",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.5.2. See https://www.w3.org/TR/WCAG22/#252",
-    "disability_classes": [
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.5.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1213,22 +630,10 @@
     "criterion_number": "2.5.3",
     "criterion_title": "Success Criterion 2.5.3",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.5.3. See https://www.w3.org/TR/WCAG22/#253",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.5.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1236,21 +641,10 @@
     "criterion_number": "2.5.4",
     "criterion_title": "Success Criterion 2.5.4",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.5.4. See https://www.w3.org/TR/WCAG22/#254",
-    "disability_classes": [
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.5.4",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1258,16 +652,10 @@
     "criterion_number": "2.5.5",
     "criterion_title": "Success Criterion 2.5.5",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.5.5. See https://www.w3.org/TR/WCAG22/#255",
-    "disability_classes": [
-      "motor"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.5.5",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1275,16 +663,10 @@
     "criterion_number": "2.5.6",
     "criterion_title": "Success Criterion 2.5.6",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.5.6. See https://www.w3.org/TR/WCAG22/#256",
-    "disability_classes": [
-      "motor"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.5.6",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1292,21 +674,10 @@
     "criterion_number": "2.5.7",
     "criterion_title": "Success Criterion 2.5.7",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.5.7. See https://www.w3.org/TR/WCAG22/#257",
-    "disability_classes": [
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.5.7",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1314,21 +685,10 @@
     "criterion_number": "2.5.8",
     "criterion_title": "Success Criterion 2.5.8",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 2.5.8. See https://www.w3.org/TR/WCAG22/#258",
-    "disability_classes": [
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Operable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 2.5.8",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1336,22 +696,10 @@
     "criterion_number": "3.1.1",
     "criterion_title": "Success Criterion 3.1.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.1.1. See https://www.w3.org/TR/WCAG22/#311",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.1.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1359,22 +707,10 @@
     "criterion_number": "3.1.2",
     "criterion_title": "Success Criterion 3.1.2",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.1.2. See https://www.w3.org/TR/WCAG22/#312",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.1.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1382,16 +718,10 @@
     "criterion_number": "3.1.3",
     "criterion_title": "Success Criterion 3.1.3",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.1.3. See https://www.w3.org/TR/WCAG22/#313",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.1.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1399,16 +729,10 @@
     "criterion_number": "3.1.4",
     "criterion_title": "Success Criterion 3.1.4",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.1.4. See https://www.w3.org/TR/WCAG22/#314",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.1.4",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1416,16 +740,10 @@
     "criterion_number": "3.1.5",
     "criterion_title": "Success Criterion 3.1.5",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.1.5. See https://www.w3.org/TR/WCAG22/#315",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.1.5",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1433,16 +751,10 @@
     "criterion_number": "3.1.6",
     "criterion_title": "Success Criterion 3.1.6",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.1.6. See https://www.w3.org/TR/WCAG22/#316",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.1.6",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1450,22 +762,10 @@
     "criterion_number": "3.2.1",
     "criterion_title": "Success Criterion 3.2.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.2.1. See https://www.w3.org/TR/WCAG22/#321",
-    "disability_classes": [
-      "cognitive",
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.2.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1473,22 +773,10 @@
     "criterion_number": "3.2.2",
     "criterion_title": "Success Criterion 3.2.2",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.2.2. See https://www.w3.org/TR/WCAG22/#322",
-    "disability_classes": [
-      "cognitive",
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.2.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1496,22 +784,10 @@
     "criterion_number": "3.2.3",
     "criterion_title": "Success Criterion 3.2.3",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.2.3. See https://www.w3.org/TR/WCAG22/#323",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.2.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1519,22 +795,10 @@
     "criterion_number": "3.2.4",
     "criterion_title": "Success Criterion 3.2.4",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.2.4. See https://www.w3.org/TR/WCAG22/#324",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.2.4",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1542,16 +806,10 @@
     "criterion_number": "3.2.5",
     "criterion_title": "Success Criterion 3.2.5",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.2.5. See https://www.w3.org/TR/WCAG22/#325",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.2.5",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1559,22 +817,10 @@
     "criterion_number": "3.2.6",
     "criterion_title": "Success Criterion 3.2.6",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.2.6. See https://www.w3.org/TR/WCAG22/#326",
-    "disability_classes": [
-      "cognitive",
-      "at_parsing"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.2.6",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1582,22 +828,10 @@
     "criterion_number": "3.3.1",
     "criterion_title": "Success Criterion 3.3.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.3.1. See https://www.w3.org/TR/WCAG22/#331",
-    "disability_classes": [
-      "cognitive",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.3.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1605,22 +839,10 @@
     "criterion_number": "3.3.2",
     "criterion_title": "Success Criterion 3.3.2",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.3.2. See https://www.w3.org/TR/WCAG22/#332",
-    "disability_classes": [
-      "cognitive",
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.3.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1628,22 +850,10 @@
     "criterion_number": "3.3.3",
     "criterion_title": "Success Criterion 3.3.3",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.3.3. See https://www.w3.org/TR/WCAG22/#333",
-    "disability_classes": [
-      "cognitive",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.3.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1651,21 +861,10 @@
     "criterion_number": "3.3.4",
     "criterion_title": "Success Criterion 3.3.4",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.3.4. See https://www.w3.org/TR/WCAG22/#334",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.3.4",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1673,16 +872,10 @@
     "criterion_number": "3.3.5",
     "criterion_title": "Success Criterion 3.3.5",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.3.5. See https://www.w3.org/TR/WCAG22/#335",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.3.5",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1690,16 +883,10 @@
     "criterion_number": "3.3.6",
     "criterion_title": "Success Criterion 3.3.6",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.3.6. See https://www.w3.org/TR/WCAG22/#336",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.3.6",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1707,22 +894,10 @@
     "criterion_number": "3.3.7",
     "criterion_title": "Success Criterion 3.3.7",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.3.7. See https://www.w3.org/TR/WCAG22/#337",
-    "disability_classes": [
-      "cognitive",
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.3.7",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1730,21 +905,10 @@
     "criterion_number": "3.3.8",
     "criterion_title": "Success Criterion 3.3.8",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.3.8. See https://www.w3.org/TR/WCAG22/#338",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.3.8",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1752,16 +916,10 @@
     "criterion_number": "3.3.9",
     "criterion_title": "Success Criterion 3.3.9",
     "conformance_level": "AAA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 3.3.9. See https://www.w3.org/TR/WCAG22/#339",
-    "disability_classes": [
-      "cognitive"
-    ],
-    "legal_regulations": [
-      "EU EAA Article 4",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46"
-    ],
-    "pillar": "Understandable",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 3.3.9",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1769,22 +927,10 @@
     "criterion_number": "4.1.1",
     "criterion_title": "Success Criterion 4.1.1",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 4.1.1. See https://www.w3.org/TR/WCAG22/#411",
-    "disability_classes": [
-      "at_parsing",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Robust",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 4.1.1",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1792,23 +938,10 @@
     "criterion_number": "4.1.2",
     "criterion_title": "Success Criterion 4.1.2",
     "conformance_level": "A",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 4.1.2. See https://www.w3.org/TR/WCAG22/#412",
-    "disability_classes": [
-      "at_parsing",
-      "visual",
-      "motor"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Robust",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 4.1.2",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   },
@@ -1816,23 +949,10 @@
     "criterion_number": "4.1.3",
     "criterion_title": "Success Criterion 4.1.3",
     "conformance_level": "AA",
-    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full text for criterion 4.1.3. See https://www.w3.org/TR/WCAG22/#413",
-    "disability_classes": [
-      "at_parsing",
-      "cognitive",
-      "visual"
-    ],
-    "legal_regulations": [
-      "ADA Title III",
-      "Section 508",
-      "EU EAA Article 4",
-      "UK PSBAR 2018",
-      "UK Equality Act 2010",
-      "India RPWD Act Section 46",
-      "Australia AGIMO WCAG Target",
-      "Canada AODA"
-    ],
-    "pillar": "Robust",
+    "criterion_text": "[PLACEHOLDER] Download WCAG HTML to populate full textfor criterion 4.1.3",
+    "disability_classes": [],
+    "legal_regulations": [],
+    "pillar": "",
     "wcag_version": "2.2",
     "understanding_url": null
   }

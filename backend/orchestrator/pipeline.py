@@ -5,6 +5,7 @@ Owned by Mahesh.
 
 import asyncio
 import logging
+import os
 from bs4 import BeautifulSoup
 from backend.orchestrator.contracts import (
     DOMPayload, ReportJSON, AuditMetadata, Benchmark, FindingWithFix, Fix, Finding
@@ -22,9 +23,11 @@ from backend.rag.vector_store import WCAGVectorStore
 
 logger = logging.getLogger("wcag-audit")
 
-AGENT_TIMEOUT_SECONDS = 30
-CRITIQUE_TIMEOUT_SECONDS = 30
+AGENT_TIMEOUT_SECONDS = int(os.getenv("AGENT_TIMEOUT_SECONDS", "80"))
+CRITIQUE_TIMEOUT_SECONDS = int(os.getenv("CRITIQUE_TIMEOUT_SECONDS", "80"))
 FIX_TIMEOUT_SECONDS = 15
+AGENT_MAX_CONCURRENCY = int(os.getenv("AGENT_MAX_CONCURRENCY", "2"))
+CRITIQUE_MAX_CONCURRENCY = int(os.getenv("CRITIQUE_MAX_CONCURRENCY", "2"))
 
 fix_engine_pipeline = FixEnginePipeline()
 
@@ -39,6 +42,9 @@ _agents = {
 }
 
 _critique_agent = CritiqueAgent(vector_store=_vector_store)
+
+_agent_semaphore = asyncio.Semaphore(max(1, AGENT_MAX_CONCURRENCY))
+_critique_semaphore = asyncio.Semaphore(max(1, CRITIQUE_MAX_CONCURRENCY))
 
 
 def calculate_impact_score(criterion_level: str, confidence: float, disability_class: str) -> int:
@@ -65,7 +71,8 @@ def extract_element_html(dom_html: str, selector: str) -> str:
 async def run_real_agent_safely(agent_name: str, agent, input_data: AuditAgentInput) -> list:
     """Returns raw AgentFinding objects (his schema) — NOT converted yet."""
     try:
-        return await asyncio.wait_for(agent.audit(input_data), timeout=AGENT_TIMEOUT_SECONDS)
+        async with _agent_semaphore:
+            return await asyncio.wait_for(agent.audit(input_data), timeout=AGENT_TIMEOUT_SECONDS)
     except asyncio.TimeoutError:
         logger.warning(f"Agent '{agent_name}' timed out after {AGENT_TIMEOUT_SECONDS}s")
         return []
@@ -77,9 +84,10 @@ async def run_real_agent_safely(agent_name: str, agent, input_data: AuditAgentIn
 async def run_critique_safely(agent_finding, dom_chunk: str):
     """Wraps critique_agent.evaluate() with timeout + failure isolation."""
     try:
-        return await asyncio.wait_for(
-            _critique_agent.evaluate(agent_finding, dom_chunk), timeout=CRITIQUE_TIMEOUT_SECONDS
-        )
+        async with _critique_semaphore:
+            return await asyncio.wait_for(
+                _critique_agent.evaluate(agent_finding, dom_chunk), timeout=CRITIQUE_TIMEOUT_SECONDS
+            )
     except Exception as e:
         logger.error(f"Critique agent failed for finding {agent_finding.id}: {e}")
         return None  # treated as NEEDS_CONTEXT fallback below
@@ -153,12 +161,24 @@ class AuditPipeline:
         pass
 
     async def run_audit(self, payload: DOMPayload) -> ReportJSON:
+        # Some pages (for example PDF viewers or blocked documents) provide
+        # effectively empty DOM payloads. Keep the pipeline resilient by
+        # normalizing to a minimal HTML shell that satisfies agent schema.
+        dom_chunk = (payload.dom_html or "").strip()
+        if len(dom_chunk) < 10:
+            logger.warning(
+                "Received very short DOM payload (size=%d) for %s; using minimal fallback HTML",
+                len(dom_chunk),
+                payload.url,
+            )
+            dom_chunk = "<html></html>"
+
         # Step 1: run all 5 real agents in parallel — full DOM as single chunk
         tasks = []
         for name, agent in _agents.items():
             agent_input = AuditAgentInput(
                 disability_class=name,
-                dom_chunk=payload.dom_html,
+                dom_chunk=dom_chunk,
                 url=payload.url,
                 chunk_index=0,
                 total_chunks=1,
@@ -170,7 +190,7 @@ class AuditPipeline:
 
         # Step 2: critique every raw finding in parallel, using his real critique agent
         critique_results = await asyncio.gather(
-            *[run_critique_safely(f, payload.dom_html) for f in raw_agent_findings]
+            *[run_critique_safely(f, dom_chunk) for f in raw_agent_findings]
         )
 
         # Step 3: merge finding + critique verdict into our contract, drop REJECTED
@@ -182,7 +202,7 @@ class AuditPipeline:
 
         # Step 4: real fix engine, confirmed findings only
         confirmed = [f for f in reviewed_findings if f.status == "confirmed"]
-        fixes = await asyncio.gather(*[run_fix_safely(f, payload.dom_html) for f in confirmed])
+        fixes = await asyncio.gather(*[run_fix_safely(f, dom_chunk) for f in confirmed])
 
         findings_with_fix = [
             FindingWithFix(**f.model_dump(), fix=fix)

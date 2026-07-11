@@ -31,10 +31,12 @@ Design : Section 2.3.2 of WCAG Audit Agent Design Document v1.0
 
 from __future__ import annotations
 
+import asyncio
 import abc
 import json
 import logging
 import os
+from pathlib import Path
 from typing import Any, Optional
 
 import httpx
@@ -49,17 +51,61 @@ from .schemas import (
 )
 from ..rag.vector_store import WCAGVectorStore
 
-load_dotenv()
+_BACKEND_ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(_BACKEND_ENV_PATH)
 
 logger = logging.getLogger("base_agent")
 
 # ── Constants ──────────────────────────────────────────────────────────────────
 
-# Default vLLM endpoint — override via .env VLLM_ENDPOINT
-DEFAULT_VLLM_ENDPOINT = os.getenv("VLLM_ENDPOINT", "http://localhost:8000")
+# Generic OpenAI-compatible endpoint selection (Gemini first, vLLM backward compatible)
+DEFAULT_VLLM_ENDPOINT = (
+    os.getenv("LLM_ENDPOINT")
+    or os.getenv("OPENAI_BASE_URL")
+    or os.getenv("GEMINI_OPENAI_BASE_URL")
+    or os.getenv("VLLM_ENDPOINT")
+    or "https://generativelanguage.googleapis.com/v1beta/openai"
+)
 
-# Model name as registered in vLLM — must match --model flag in vLLM startup command
-VLLM_MODEL = os.getenv("VLLM_MODEL", "mistralai/Mistral-7B-Instruct-v0.3")
+# Model selection (Gemini first, vLLM backward compatible)
+VLLM_MODEL = (
+    os.getenv("LLM_MODEL")
+    or os.getenv("GEMINI_MODEL")
+    or os.getenv("VLLM_MODEL")
+    or "gemini-2.5-flash"
+)
+
+# API key (optional for local vLLM, required for hosted providers like Gemini)
+LLM_API_KEY = (
+    os.getenv("LLM_API_KEY")
+    or os.getenv("OPENAI_API_KEY")
+    or os.getenv("GEMINI_API_KEY")
+    or os.getenv("GOOGLE_API_KEY")
+    or ""
+)
+
+AGENT_KEY_ENV_BY_CLASS = {
+    DisabilityClass.VISUAL: (
+        "LLM_API_KEY_VISUAL",
+        "GEMINI_API_KEY_VISUAL",
+    ),
+    DisabilityClass.AUDITORY: (
+        "LLM_API_KEY_AUDITORY",
+        "GEMINI_API_KEY_AUDITORY",
+    ),
+    DisabilityClass.MOTOR: (
+        "LLM_API_KEY_MOTOR",
+        "GEMINI_API_KEY_MOTOR",
+    ),
+    DisabilityClass.COGNITIVE: (
+        "LLM_API_KEY_COGNITIVE",
+        "GEMINI_API_KEY_COGNITIVE",
+    ),
+    DisabilityClass.AT_PARSING: (
+        "LLM_API_KEY_AT_PARSING",
+        "GEMINI_API_KEY_AT_PARSING",
+    ),
+}
 
 # Max tokens for agent response — enough for a JSON array of ~8 findings
 MAX_TOKENS = 4096
@@ -73,7 +119,9 @@ CONFIDENCE_DROP_THRESHOLD   = 0.50   # findings below this are silently dropped
 CONFIDENCE_CONTEXT_THRESHOLD = 0.70  # findings below this become NEEDS_CONTEXT
 
 # Retry config
-MAX_JSON_RETRIES = 3
+MAX_JSON_RETRIES = int(os.getenv("AGENT_JSON_RETRIES", "1"))
+MAX_HTTP_RETRIES = 3
+BASE_HTTP_RETRY_DELAY_SECONDS = 1.0
 
 # Number of WCAG criteria to retrieve from vector store per DOM chunk
 N_CRITERIA_TO_RETRIEVE = 8
@@ -111,7 +159,8 @@ class BaseAccessibilityAgent(abc.ABC):
         vector_store: Optional[WCAGVectorStore] = None,
     ) -> None:
         self.disability_class = disability_class
-        self.vllm_endpoint    = vllm_endpoint.rstrip("/")
+        self.vllm_endpoint    = (vllm_endpoint or DEFAULT_VLLM_ENDPOINT).rstrip("/")
+        self._llm_api_key     = self._resolve_llm_api_key(disability_class)
         self.vector_store     = vector_store or WCAGVectorStore()
 
         # Reusable async HTTP client — connection pooling across audit() calls
@@ -122,9 +171,20 @@ class BaseAccessibilityAgent(abc.ABC):
         )
 
         logger.info(
-            "Initialised %s | endpoint: %s",
-            self.__class__.__name__, self.vllm_endpoint,
+            "Initialised %s | endpoint: %s | key_configured: %s",
+            self.__class__.__name__, self.vllm_endpoint, bool(self._llm_api_key),
         )
+
+    @staticmethod
+    def _resolve_llm_api_key(disability_class: DisabilityClass) -> str:
+        """Resolve per-agent API key first, then fallback to shared key vars."""
+        agent_envs = AGENT_KEY_ENV_BY_CLASS.get(disability_class, ())
+        for env_name in agent_envs:
+            value = os.getenv(env_name, "").strip()
+            if value:
+                return value
+
+        return LLM_API_KEY
 
     # ── Private helpers ────────────────────────────────────────────────────────
 
@@ -262,32 +322,142 @@ class BaseAccessibilityAgent(abc.ABC):
         """
         text = raw_text.strip()
 
-        # Strip markdown code fences if present
+        # Strip markdown code fences if present, including truncated fence outputs.
         if text.startswith("```"):
-            lines = text.split("\n")
-            # Remove first line (```json or ```) and last line (```)
-            text = "\n".join(lines[1:-1]).strip()
+            lines = text.splitlines()
+            if lines:
+                # Drop opening fence line (``` or ```json)
+                lines = lines[1:]
+                # Drop closing fence line if present
+                if lines and lines[-1].strip() == "```":
+                    lines = lines[:-1]
+                text = "\n".join(lines).strip()
 
-        # Find the JSON array boundaries
-        start = text.find("[")
-        end   = text.rfind("]")
+        # Some models prepend "json" after fence stripping when output is malformed.
+        if text.lower().startswith("json\n"):
+            text = text[5:].lstrip()
 
-        if start != -1 and end != -1:
-            text = text[start:end + 1]
-        elif text.startswith("{"):
-            # Single object — wrap in array
-            text = f"[{text}]"
-        else:
-            raise ValueError(
-                f"Response does not contain a JSON array. "
-                f"First 200 chars: {raw_text[:200]}"
-            )
+        def _coerce_to_findings_list(parsed_obj: Any) -> list[dict]:
+            if isinstance(parsed_obj, list):
+                return parsed_obj
+            if isinstance(parsed_obj, dict):
+                for key in ("findings", "violations", "results", "items"):
+                    value = parsed_obj.get(key)
+                    if isinstance(value, list):
+                        return value
+                return [parsed_obj]
+            raise ValueError("Parsed JSON is neither an object nor an array")
 
-        parsed = json.loads(text)   # raises json.JSONDecodeError on failure
-        if not isinstance(parsed, list):
-            parsed = [parsed]
+        def _salvage_array_payload(candidate: str) -> Optional[list[dict]]:
+            """Try to salvage truncated JSON arrays by keeping only complete objects."""
+            if not candidate.strip().startswith("["):
+                return None
 
-        return parsed
+            # Keep content until the last complete object and close the array.
+            last_obj_end = candidate.rfind("}")
+            if last_obj_end == -1:
+                return None
+
+            repaired = candidate[:last_obj_end + 1].rstrip().rstrip(",") + "]"
+            try:
+                return _coerce_to_findings_list(json.loads(repaired))
+            except Exception:
+                return None
+
+        def _extract_json_objects(candidate: str) -> list[dict]:
+            """Recover complete top-level JSON objects from noisy/truncated text."""
+            objs: list[dict] = []
+            in_string = False
+            escape = False
+            depth = 0
+            start_idx: Optional[int] = None
+
+            for i, ch in enumerate(candidate):
+                if in_string:
+                    if escape:
+                        escape = False
+                    elif ch == "\\":
+                        escape = True
+                    elif ch == '"':
+                        in_string = False
+                    continue
+
+                if ch == '"':
+                    in_string = True
+                    continue
+
+                if ch == "{":
+                    if depth == 0:
+                        start_idx = i
+                    depth += 1
+                elif ch == "}":
+                    if depth > 0:
+                        depth -= 1
+                        if depth == 0 and start_idx is not None:
+                            snippet = candidate[start_idx:i + 1]
+                            try:
+                                parsed = json.loads(snippet)
+                                if isinstance(parsed, dict):
+                                    objs.append(parsed)
+                            except Exception:
+                                pass
+                            start_idx = None
+
+            return objs
+
+        # First, try strict parsing of the whole payload.
+        try:
+            return _coerce_to_findings_list(json.loads(text))
+        except Exception:
+            pass
+
+        # Fallback: extract a JSON array/object region from mixed prose responses.
+        start_arr = text.find("[")
+        end_arr = text.rfind("]")
+        start_obj = text.find("{")
+        end_obj = text.rfind("}")
+
+        candidates: list[str] = []
+
+        if start_arr != -1 and end_arr != -1 and end_arr > start_arr:
+            candidates.append(text[start_arr:end_arr + 1])
+
+        # Handle truncated array responses like "[ {...}, {..." by clipping to last object end.
+        if start_arr != -1 and end_arr == -1:
+            last_obj_end = text.rfind("}")
+            if last_obj_end > start_arr:
+                clipped = text[start_arr:last_obj_end + 1].rstrip().rstrip(",") + "]"
+                candidates.append(clipped)
+
+        if start_obj != -1 and end_obj != -1 and end_obj > start_obj:
+            candidates.append(text[start_obj:end_obj + 1])
+
+        for candidate in candidates:
+            try:
+                return _coerce_to_findings_list(json.loads(candidate))
+            except Exception:
+                salvaged = _salvage_array_payload(candidate)
+                if salvaged is not None:
+                    logger.warning(
+                        "%s recovered partially truncated JSON payload from model response",
+                        self.__class__.__name__,
+                    )
+                    return salvaged
+
+                objs = _extract_json_objects(candidate)
+                if objs:
+                    logger.warning(
+                        "%s recovered %d JSON object(s) from malformed model response",
+                        self.__class__.__name__,
+                        len(objs),
+                    )
+                    return objs
+                continue
+
+        raise ValueError(
+            f"Response does not contain a valid JSON findings payload. "
+            f"First 200 chars: {raw_text[:200]}"
+        )
 
     def _apply_confidence_guardrails(
         self,
@@ -469,14 +639,91 @@ class BaseAccessibilityAgent(abc.ABC):
             "messages":        messages,
             "max_tokens":      MAX_TOKENS,
             "temperature":     AGENT_TEMPERATURE,
-            "response_format": {"type": "json_object"},   # guided decoding
         }
 
-        response = await self._http_client.post(
-            f"{self.vllm_endpoint}/v1/chat/completions",
-            json=payload,
-            headers={"Content-Type": "application/json"},
-        )
+        headers = {"Content-Type": "application/json"}
+        if self._llm_api_key:
+            headers["Authorization"] = f"Bearer {self._llm_api_key}"
+
+        fallback_headers = {"Content-Type": "application/json"}
+        if LLM_API_KEY:
+            fallback_headers["Authorization"] = f"Bearer {LLM_API_KEY}"
+
+        base_url = self.vllm_endpoint.rstrip("/")
+        if base_url.endswith("/chat/completions"):
+            candidate_urls = [base_url]
+        elif "generativelanguage.googleapis.com" in base_url:
+            candidate_urls = [
+                f"{base_url}/chat/completions",
+            ]
+        else:
+            candidate_urls = [
+                f"{base_url}/v1/chat/completions",
+                f"{base_url}/chat/completions",
+            ]
+
+        response = None
+        selected_url = candidate_urls[0]
+        for chat_url in candidate_urls:
+            selected_url = chat_url
+            response = None
+            for retry in range(MAX_HTTP_RETRIES):
+                response = await self._http_client.post(
+                    chat_url,
+                    json=payload,
+                    headers=headers,
+                )
+                if response.status_code != 429:
+                    break
+
+                if retry == MAX_HTTP_RETRIES - 1:
+                    break
+
+                retry_after = response.headers.get("Retry-After")
+                try:
+                    wait_seconds = float(retry_after) if retry_after else 0.0
+                except (TypeError, ValueError):
+                    wait_seconds = 0.0
+
+                if wait_seconds <= 0:
+                    wait_seconds = BASE_HTTP_RETRY_DELAY_SECONDS * (2 ** retry)
+
+                logger.warning(
+                    "%s hit 429 from LLM endpoint. Retrying in %.1fs (attempt %d/%d)",
+                    self.__class__.__name__,
+                    wait_seconds,
+                    retry + 1,
+                    MAX_HTTP_RETRIES,
+                )
+                await asyncio.sleep(wait_seconds)
+
+            # If a per-agent key returns 404, try once with shared fallback key.
+            if (
+                response is not None
+                and response.status_code == 404
+                and LLM_API_KEY
+                and self._llm_api_key
+                and self._llm_api_key != LLM_API_KEY
+            ):
+                response = await self._http_client.post(
+                    chat_url,
+                    json=payload,
+                    headers=fallback_headers,
+                )
+
+            if response.status_code != 404:
+                break
+
+        # Some providers reject response_format=json_object; retry once without it.
+        if response.status_code == 400 and "response_format" in payload:
+            fallback_payload = dict(payload)
+            fallback_payload.pop("response_format", None)
+            response = await self._http_client.post(
+                selected_url,
+                json=fallback_payload,
+                headers=headers,
+            )
+
         response.raise_for_status()
 
         data = response.json()

@@ -27,9 +27,11 @@ Design : Section 2.4 — Critique Sub-Agent Architecture Detail
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import os
+from pathlib import Path
 from typing import Optional
 
 import httpx
@@ -38,14 +40,36 @@ from dotenv import load_dotenv
 from .schemas import AgentFinding, CritiqueResult, CritiqueVerdict
 from ..rag.vector_store import WCAGVectorStore
 
-load_dotenv()
+_BACKEND_ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(_BACKEND_ENV_PATH)
 
 logger = logging.getLogger("critique_agent")
 
 # ── Constants ──────────────────────────────────────────────────────────────────
 
-DEFAULT_VLLM_ENDPOINT = os.getenv("VLLM_ENDPOINT", "http://localhost:8000")
-VLLM_MODEL            = os.getenv("VLLM_MODEL", "mistralai/Mistral-7B-Instruct-v0.3")
+DEFAULT_VLLM_ENDPOINT = (
+    os.getenv("LLM_ENDPOINT")
+    or os.getenv("OPENAI_BASE_URL")
+    or os.getenv("GEMINI_OPENAI_BASE_URL")
+    or os.getenv("VLLM_ENDPOINT")
+    or "https://generativelanguage.googleapis.com/v1beta/openai"
+)
+VLLM_MODEL = (
+    os.getenv("LLM_MODEL")
+    or os.getenv("GEMINI_MODEL")
+    or os.getenv("VLLM_MODEL")
+    or "gemini-2.5-flash"
+)
+LLM_API_KEY = (
+    os.getenv("LLM_API_KEY_CRITIQUE")
+    or os.getenv("GEMINI_API_KEY_CRITIQUE")
+    or os.getenv("CRITIQUE_LLM_API_KEY")
+    or os.getenv("LLM_API_KEY")
+    or os.getenv("OPENAI_API_KEY")
+    or os.getenv("GEMINI_API_KEY")
+    or os.getenv("GOOGLE_API_KEY")
+    or ""
+)
 
 # Temperature MUST be 0.0 — deterministic output for a quality-gate role
 CRITIQUE_TEMPERATURE = 0.0
@@ -54,7 +78,9 @@ CRITIQUE_TEMPERATURE = 0.0
 MAX_TOKENS = 1024
 
 # Maximum retries on JSON parse failure
-MAX_RETRIES = 3
+MAX_RETRIES = int(os.getenv("CRITIQUE_JSON_RETRIES", "1"))
+MAX_HTTP_RETRIES = 3
+BASE_HTTP_RETRY_DELAY_SECONDS = 1.0
 
 # Minimum citation length to be considered valid (Design Doc Section 2.4.2)
 MIN_CITATION_LENGTH = 20
@@ -90,7 +116,8 @@ class CritiqueAgent:
         vllm_endpoint: str = DEFAULT_VLLM_ENDPOINT,
         vector_store: Optional[WCAGVectorStore] = None,
     ) -> None:
-        self.vllm_endpoint = vllm_endpoint.rstrip("/")
+        self.vllm_endpoint = (vllm_endpoint or DEFAULT_VLLM_ENDPOINT).rstrip("/")
+        self._llm_api_key = LLM_API_KEY
         self.vector_store  = vector_store or WCAGVectorStore()
 
         # Reusable async HTTP client
@@ -100,8 +127,8 @@ class CritiqueAgent:
         )
 
         logger.info(
-            "CritiqueAgent initialised | endpoint: %s | temperature: %.1f",
-            self.vllm_endpoint, CRITIQUE_TEMPERATURE,
+            "CritiqueAgent initialised | endpoint: %s | temperature: %.1f | key_configured: %s",
+            self.vllm_endpoint, CRITIQUE_TEMPERATURE, bool(self._llm_api_key),
         )
 
     # ── Private helpers ────────────────────────────────────────────────────────
@@ -450,11 +477,69 @@ HARD RULES — violating these will cause your output to be rejected:
             "response_format": {"type": "json_object"}, # guided JSON decoding
         }
 
-        response = await self._http_client.post(
-            f"{self.vllm_endpoint}/v1/chat/completions",
-            json=payload,
-            headers={"Content-Type": "application/json"},
-        )
+        headers = {"Content-Type": "application/json"}
+        if self._llm_api_key:
+            headers["Authorization"] = f"Bearer {self._llm_api_key}"
+
+        base_url = self.vllm_endpoint.rstrip("/")
+        if base_url.endswith("/chat/completions"):
+            candidate_urls = [base_url]
+        elif "generativelanguage.googleapis.com" in base_url:
+            candidate_urls = [
+                f"{base_url}/chat/completions",
+            ]
+        else:
+            candidate_urls = [
+                f"{base_url}/v1/chat/completions",
+                f"{base_url}/chat/completions",
+            ]
+
+        response = None
+        selected_url = candidate_urls[0]
+        for chat_url in candidate_urls:
+            selected_url = chat_url
+            response = None
+            for retry in range(MAX_HTTP_RETRIES):
+                response = await self._http_client.post(
+                    chat_url,
+                    json=payload,
+                    headers=headers,
+                )
+                if response.status_code != 429:
+                    break
+
+                if retry == MAX_HTTP_RETRIES - 1:
+                    break
+
+                retry_after = response.headers.get("Retry-After")
+                try:
+                    wait_seconds = float(retry_after) if retry_after else 0.0
+                except (TypeError, ValueError):
+                    wait_seconds = 0.0
+
+                if wait_seconds <= 0:
+                    wait_seconds = BASE_HTTP_RETRY_DELAY_SECONDS * (2 ** retry)
+
+                logger.warning(
+                    "CritiqueAgent hit 429 from LLM endpoint. Retrying in %.1fs (attempt %d/%d)",
+                    wait_seconds,
+                    retry + 1,
+                    MAX_HTTP_RETRIES,
+                )
+                await asyncio.sleep(wait_seconds)
+
+            if response.status_code != 404:
+                break
+
+        if response.status_code == 400 and "response_format" in payload:
+            fallback_payload = dict(payload)
+            fallback_payload.pop("response_format", None)
+            response = await self._http_client.post(
+                selected_url,
+                json=fallback_payload,
+                headers=headers,
+            )
+
         response.raise_for_status()
 
         data    = response.json()

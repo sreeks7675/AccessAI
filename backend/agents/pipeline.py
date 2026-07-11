@@ -56,6 +56,7 @@ import operator
 import os
 import uuid
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Annotated, Any, TypedDict
 
 from bs4 import BeautifulSoup
@@ -79,7 +80,8 @@ from ..common.finding_adapter import agent_finding_to_finding_object
 from ..fix_engine import FixEnginePipeline
 from ..rag.vector_store import WCAGVectorStore
 
-load_dotenv()
+_BACKEND_ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(_BACKEND_ENV_PATH)
 
 logger = logging.getLogger("pipeline")
 logging.basicConfig(
@@ -89,7 +91,13 @@ logging.basicConfig(
 )
 
 # ── Environment ────────────────────────────────────────────────────────────────
-VLLM_ENDPOINT   = os.getenv("VLLM_ENDPOINT", "http://localhost:8000")
+VLLM_ENDPOINT   = (
+    os.getenv("LLM_ENDPOINT")
+    or os.getenv("OPENAI_BASE_URL")
+    or os.getenv("GEMINI_OPENAI_BASE_URL")
+    or os.getenv("VLLM_ENDPOINT")
+    or "https://generativelanguage.googleapis.com/v1beta/openai"
+)
 CHROMA_DB_PATH  = os.getenv("CHROMA_DB_PATH", "./data/chroma")
 TOOL_VERSION    = "1.0.0"
 WCAG_VERSION    = "2.2"

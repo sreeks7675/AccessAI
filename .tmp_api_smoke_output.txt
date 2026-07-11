@@ -1,0 +1,14 @@
+{
+  "health_status": 200,
+  "audit_status": 200,
+  "keys": [
+    "audit_metadata",
+    "benchmark",
+    "disclaimer",
+    "findings",
+    "news_preview"
+  ],
+  "findings_count": 0,
+  "benchmark_present": true,
+  "news_preview_count": 0
+}

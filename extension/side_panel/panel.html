@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WCAG Audit Agent</title>
+  <link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <h1>WCAG Audit Agent</h1>
+        <p id="audited-url" class="audited-url">No audit yet</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <label class="mock-toggle" title="Use bundled sample report instead of the backend">
+        <input type="checkbox" id="mock-mode" />
+        <span>Mock</span>
+      </label>
+      <button id="run-audit" class="btn-primary">Run audit</button>
+    </div>
+  </header>
+
+  <div id="status-bar" class="status-bar hidden" role="status" aria-live="polite"></div>
+
+  <nav class="tabs" role="tablist" aria-label="Audit views">
+    <button class="tab active" role="tab" aria-selected="true"  data-tab="audit">Audit</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="fix">Fix Studio</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="benchmark">Benchmark</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="news">News</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="timeline">Timeline</button>
+  </nav>
+
+  <!-- Tab 1: Audit Report -->
+  <main id="tab-audit" class="tab-panel" role="tabpanel">
+    <div id="audit-summary" class="summary-row hidden"></div>
+    <div id="findings-list" class="findings-list">
+      <div class="empty-state">
+        <p><strong>No findings yet.</strong></p>
+        <p>Open the page you want to check, then run an audit. Results appear here grouped by disability impact.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Tab 2: Fix Studio (3-pane, Design §2.2.2) -->
+  <main id="tab-fix" class="tab-panel hidden" role="tabpanel">
+    <div id="fix-empty" class="empty-state">
+      <p><strong>Fix Studio is empty.</strong></p>
+      <p>Pick a finding in the Audit tab and choose "Open in Fix Studio" to see the original code, the patch, and a live preview.</p>
+    </div>
+    <div id="fix-studio" class="fix-studio hidden">
+      <h2 id="fix-title" class="pane-title"></h2>
+      <section class="pane">
+        <h3>Original</h3>
+        <pre id="fix-original" class="code-block"></pre>
+      </section>
+      <section class="pane">
+        <h3>Patched <span id="fix-validated-badge" class="badge"></span></h3>
+        <pre id="fix-patched" class="code-block"></pre>
+      </section>
+      <section class="pane">
+        <h3>Diff</h3>
+        <div id="fix-diff" class="diff-block"></div>
+      </section>
+      <section class="pane">
+        <h3>Live preview <span class="pane-note">approximation — external assets blocked by sandbox</span></h3>
+        <iframe id="fix-preview" class="preview-frame" sandbox="allow-same-origin" title="Rendered preview of the patched element"></iframe>
+      </section>
+      <p id="fix-review-note" class="review-note hidden"></p>
+    </div>
+  </main>
+
+  <!-- Tab 3: Benchmark -->
+  <main id="tab-benchmark" class="tab-panel hidden" role="tabpanel">
+    <div id="benchmark-content" class="empty-state">
+      <p><strong>No benchmark yet.</strong></p>
+      <p>Run an audit to compare this tool's findings against axe-core and WAVE for the same page.</p>
+    </div>
+  </main>
+
+  <!-- Tab 4: News & Cases -->
+  <main id="tab-news" class="tab-panel hidden" role="tabpanel">
+    <div id="news-content" class="empty-state">
+      <p><strong>No news loaded.</strong></p>
+      <p>The latest WCAG guideline updates and accessibility case law arrive with each audit report.</p>
+    </div>
+  </main>
+
+  <!-- Tab 5: Timeline -->
+  <main id="tab-timeline" class="tab-panel hidden" role="tabpanel">
+    <div id="timeline-content" class="empty-state">
+      <p><strong>No history for this domain.</strong></p>
+      <p>Each audit is saved locally. Re-audit the same site over time to see whether findings trend down.</p>
+    </div>
+  </main>
+
+  <footer class="disclaimer" id="report-disclaimer"></footer>
+
+  <script src="panel.js"></script>
+</body>
+</html>

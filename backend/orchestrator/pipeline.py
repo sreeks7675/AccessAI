@@ -11,7 +11,7 @@ from backend.orchestrator.contracts import (
     DOMPayload, ReportJSON, AuditMetadata, Benchmark, FindingWithFix, Fix, Finding
 )
 from backend.fix_engine import FixEnginePipeline, FindingObject
-
+from backend.agents.pipeline import dom_chunker
 from backend.agents.visual_agent import VisualAgent
 from backend.agents.auditory_agent import AuditoryAgent
 from backend.agents.motor_agent import MotorAgent
@@ -164,33 +164,40 @@ class AuditPipeline:
         # Some pages (for example PDF viewers or blocked documents) provide
         # effectively empty DOM payloads. Keep the pipeline resilient by
         # normalizing to a minimal HTML shell that satisfies agent schema.
-        dom_chunk = (payload.dom_html or "").strip()
-        if len(dom_chunk) < 10:
-            logger.warning(
-                "Received very short DOM payload (size=%d) for %s; using minimal fallback HTML",
-                len(dom_chunk),
-                payload.url,
-            )
-            dom_chunk = "<html></html>"
+        dom_html = (payload.dom_html or "").strip()
+        if len(dom_html) < 10:
+            dom_html = "<html></html>"
 
-        # Step 1: run all 5 real agents in parallel — full DOM as single chunk
+        chunk_result = dom_chunker({"full_dom": dom_html, "url": str(payload.url)})
+        dom_chunks = chunk_result["dom_chunks"] or [dom_html]
+
         tasks = []
-        for name, agent in _agents.items():
-            agent_input = AuditAgentInput(
-                disability_class=name,
-                dom_chunk=dom_chunk,
-                url=payload.url,
-                chunk_index=0,
-                total_chunks=1,
-            )
-            tasks.append(run_real_agent_safely(name, agent, agent_input))
+        task_chunks = []  # parallel list: which chunk each task's findings belong to
+        for idx, chunk in enumerate(dom_chunks):
+            for name, agent in _agents.items():
+                agent_input = AuditAgentInput(
+                    disability_class=name,
+                    dom_chunk=chunk,
+                    chunk_index=idx,
+                    total_chunks=len(dom_chunks),
+                    url=str(payload.url),
+                )
+                tasks.append(run_real_agent_safely(name, agent, agent_input))
+                task_chunks.append(chunk)
 
         results = await asyncio.gather(*tasks)
-        raw_agent_findings = [f for agent_findings in results for f in agent_findings]
 
-        # Step 2: critique every raw finding in parallel, using his real critique agent
+        # Pair each finding with the exact chunk it was found in
+        raw_finding_chunk_pairs = []
+        for chunk, agent_findings in zip(task_chunks, results):
+            for f in agent_findings:
+                raw_finding_chunk_pairs.append((f, chunk))
+
+        raw_agent_findings = [f for f, _ in raw_finding_chunk_pairs]
+        finding_to_chunk = {f.id: chunk for f, chunk in raw_finding_chunk_pairs}
+        # Step 2: critique every raw finding in parallel, using its own source chunk
         critique_results = await asyncio.gather(
-            *[run_critique_safely(f, dom_chunk) for f in raw_agent_findings]
+            *[run_critique_safely(f, chunk) for f, chunk in raw_finding_chunk_pairs]
         )
 
         # Step 3: merge finding + critique verdict into our contract, drop REJECTED
@@ -202,7 +209,7 @@ class AuditPipeline:
 
         # Step 4: real fix engine, confirmed findings only
         confirmed = [f for f in reviewed_findings if f.status == "confirmed"]
-        fixes = await asyncio.gather(*[run_fix_safely(f, dom_chunk) for f in confirmed])
+        fixes = await asyncio.gather(*[run_fix_safely(f, finding_to_chunk[f.id]) for f in confirmed])
 
         findings_with_fix = [
             FindingWithFix(**f.model_dump(), fix=fix)

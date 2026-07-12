@@ -87,23 +87,23 @@ LLM_API_KEY = (
 AGENT_KEY_ENV_BY_CLASS = {
     DisabilityClass.VISUAL: (
         "LLM_API_KEY_VISUAL",
-        "GEMINI_API_KEY_VISUAL",
+        "GEMINI_API_KEY",
     ),
     DisabilityClass.AUDITORY: (
         "LLM_API_KEY_AUDITORY",
-        "GEMINI_API_KEY_AUDITORY",
+        "GEMINI_API_KEY",
     ),
     DisabilityClass.MOTOR: (
         "LLM_API_KEY_MOTOR",
-        "GEMINI_API_KEY_MOTOR",
+        "GEMINI_API_KEY",
     ),
     DisabilityClass.COGNITIVE: (
         "LLM_API_KEY_COGNITIVE",
-        "GEMINI_API_KEY_COGNITIVE",
+        "GEMINI_API_KEY",
     ),
     DisabilityClass.AT_PARSING: (
         "LLM_API_KEY_AT_PARSING",
-        "GEMINI_API_KEY_AT_PARSING",
+        "GEMINI_API_KEY",
     ),
 }
 

@@ -108,7 +108,8 @@ CONFORMANCE_TARGET = "AA"
 LANDMARK_TAGS = ["header", "nav", "main", "aside", "footer", "form", "section", "article"]
 
 # Fallback chunk size when no landmarks are found (50KB)
-FALLBACK_CHUNK_BYTES = 50 * 1024
+#FALLBACK_CHUNK_BYTES = 50 * 1024
+FALLBACK_CHUNK_BYTES = int(os.getenv("DOM_CHUNK_BYTES", str(50 * 1024)))
 
 # ── Confidence guardrail threshold ────────────────────────────────────────────
 # Findings below this go directly to NEEDS_CONTEXT without hitting critique agent

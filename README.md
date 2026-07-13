@@ -1,4 +1,4 @@
-# 🚀 AccessAI (Final_branch is the name of the final completed branch)
+# 🚀 AccessAI (Final_branch is the name of the final completed branch comprising of "Final Code and Video")
 
 <p align="center">
 
